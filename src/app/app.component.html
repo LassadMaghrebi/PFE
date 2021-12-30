@@ -1,0 +1,23 @@
+<h1>Table using Json server</h1>
+<hr>
+<table id="users">
+  <tr>
+    <th *ngFor="let col of columns">
+      {{ col }}
+    </th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>
+      {{ user.id }}
+    </td>
+    <td>
+      {{ user.nom }}
+    </td>
+    <td>
+      {{ user.prenom }}
+    </td>
+    <td>
+      {{ user.phone }}
+    </td>
+  </tr>
+</table>
