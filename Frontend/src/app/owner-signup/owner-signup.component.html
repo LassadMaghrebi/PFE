@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-4">
+        <form class="container " #f="ngForm" (ngSubmit)="submit(f.value)">
+            <img src="../../assets/AvatarOwner.png" width=150px; class="avatar">
+            <h1 class="text">WELCOME</h1>
+            <div class="c">
+                <div class="mb-3 " >
+                    <input type="text"  placeholder="Name" class="form-control form-control-lg" name="name" ngModel>
+                </div>
+                <div class="mb-3 " >
+                    <input type="text"  placeholder="staduim Name" class="form-control form-control-lg" name="staduimName" ngModel>
+                </div>
+                <div class="mb-3 " >
+                    <input type="number"  placeholder="Number of terrains" class="form-control form-control-lg" name="nbr" ngModel>
+                </div>
+                <div class="mb-3 d-inline-flex" >
+                    <input type="text"  placeholder="Position of staduim" class="form-control form-control-lg" name="position" [(ngModel)]=position>
+                    <button class="btn "(click)="getPosition()" ><img src="../../assets/Location.svg" width="40px"></button>
+                </div>
+                <div class="mb-3 " >
+                    <input type="email"  placeholder="email" (blur)="verifEmail()" class="form-control form-control-lg" name="email" [(ngModel)]=email>
+                    <div class="form-text text-danger" >{{erreur}}</div>
+                </div>
+                <div class="mb-3 ">
+                    <input type="password" placeholder="Password" class="form-control form-control-lg" name="password" ngModel>
+                </div>
+                <div class="mb-3 ">
+                    <input type="password" placeholder="Confirm Password" class="form-control form-control-lg" name="cpwd" ngModel>
+                </div>
+            </div>
+            <div class="mb-3 d-grid gap-2 mt-5">
+                <button class="btn btn-lg"  [disabled]=!verif  type="submit"><strong>Sign Up</strong></button>
+            </div>
+        </form>
+        <h4 class="text mb-3">Already Have an account ? <a [routerLink]="['/owner-Signin']">Sign In</a></h4> 
+        <h6 class="text">Are you a staduim owner ? <a [routerLink]="['/Signin']">Click Here</a></h6> 
+    </div>
+</div>

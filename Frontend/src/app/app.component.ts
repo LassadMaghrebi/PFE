@@ -8,23 +8,8 @@ import { Users } from './Users';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  constructor(private rs : RestService){}
-  title = 'mini-foot';
-  columns = ["id","nom","prenom","Phone"];
-  values = ["id","nom","prenom","Phone"];
-  users : Users[] = [];
+  constructor(){}
   ngOnInit(): void {
-    this.rs.getUsers().subscribe
-    (
-      (response)=>
-      {
-        this.users = response;
-      },
-      (error)=>
-      {
-        console.log("Error: "+error);
-      }
-    );
   }
 
   
