@@ -1,0 +1,159 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand active" [routerLink]="['/home']">H-Sports</a>
+    <div class="d-flex btns  d-lg-none">
+      <div class="dropdown">
+        <a class="nav-link position-relative p-0 m-2" type="button" id="dropdownMenuMessage" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="bi bi-bell"></i>
+          <small><span class="position-absolute translate-middle badge rounded-pill bg-danger">8</span></small>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdownMenuMessage">
+          <span class="dropdown-header text-center">Notifications</span>
+
+          <li>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/Notification/5']">
+              <div class="media">
+                <img
+                  src="https://github.com/ColorlibHQ/AdminLTE/blob/master/docs/assets/img/user1-128x128.jpg?raw=true"
+                  class="messageImg " alt="">
+                <div class="media-body">
+                  <div class="dropdown-item-title">Maghrebi Lassad
+                    <span><i class="bi bi-check-circle" style="color: rgb(4, 29, 255);"></i></span>
+                  </div>
+                  <p class="d-inline-block text-truncate" style="max-width: 200px;margin:0px;font-size: 0.8rem;">Lorem
+                    ipsum dolor sit, amet consectetur adipisicing elit. Illo, quasi fugit quae odio autem dolorem eius
+                    fugiat! Voluptatum</p>
+                  <p class="text-muted" style="max-width: 200px;margin:0px;font-size: 0.8rem;"><i
+                      class="bi bi-clock text-muted"></i> 15 Hours Ago</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item dropdown-footer text-center" [routerLink]="['/Notifications']">See All
+            Notifications</a>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <a class="nav-link position-relative p-0 m-2" type="button" id="dropdownMenuNotifications"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-chat-dots"></i>
+          <small><span class="position-absolute  translate-middle badge rounded-pill bg-danger">2</span></small>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-2" aria-labelledby="dropdownMenuNotifications">
+          <span class="dropdown-header text-center">Messages</span>
+
+          <li>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/Message/5']">
+              <div class="media">
+                <img
+                  src="https://github.com/ColorlibHQ/AdminLTE/blob/master/docs/assets/img/user1-128x128.jpg?raw=true"
+                  class="messageImg " alt="">
+                <div class="media-body">
+                  <div class="dropdown-item-title">Maghrebi Lassad
+                    <span><i class="bi bi-check-circle" style="color: rgb(4, 29, 255);"></i></span>
+                  </div>
+                  <p class="d-inline-block text-truncate" style="max-width: 200px;margin:0px;font-size: 0.8rem;">Lorem
+                    ipsum dolor sit, amet consectetur adipisicing elit. Illo, quasi fugit quae odio autem dolorem eius
+                    fugiat! Voluptatum</p>
+                  <p class="text-muted" style="max-width: 200px;margin:0px;font-size: 0.8rem;"><i
+                      class="bi bi-clock text-muted"></i> 15 Hours Ago</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item dropdown-footer text-center" [routerLink]="['/Messages']">See All Messages</a>
+        </ul>
+      </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav ">
+        <li class="navItems" [ngClass]="{active: page=='/home'}"><a [routerLink]="['/home']">Home</a></li>
+        <li class="navItems"><a [ngClass]="{active: page=='/stadiums'}" [routerLink]="['/stadiums']">Stadiums</a></li>
+        <li class="navItems "><a [ngClass]="{active: page=='/Dashboard'}" href="#">Dashboard</a></li>
+      </ul>
+      <ul class="navbar-nav btns my-3" *ngIf="!loggedin">
+        <li><a class="btnSignin" [routerLink]="['/Signin']">Sign-in</a></li>
+        <li><a class="btnSignup" [routerLink]="['/Signup']">Sign-up</a></li>
+      </ul>
+      <ul class="navbar-nav btns d-none d-lg-inline-flex" *ngIf="loggedin">
+        <li class="dropdown">
+          <a class="nav-link position-relative p-0 m-2" type="button" id="dropdownMenuMessage" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-bell"></i>
+            <small><span class="position-absolute translate-middle badge rounded-pill bg-danger">8</span></small>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuMessage">
+            <span class="dropdown-header text-center">Notifications</span>
+
+            <li>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/Notification/5']">
+                <div class="media">
+                  <img
+                    src="https://github.com/ColorlibHQ/AdminLTE/blob/master/docs/assets/img/user1-128x128.jpg?raw=true"
+                    class="messageImg " alt="">
+                  <div class="media-body">
+                    <div class="dropdown-item-title">Maghrebi Lassad
+                      <span><i class="bi bi-check-circle" style="color: rgb(4, 29, 255);"></i></span>
+                    </div>
+                    <p class="d-inline-block text-truncate" style="max-width: 200px;margin:0px;font-size: 0.8rem;">Lorem
+                      ipsum dolor sit, amet consectetur adipisicing elit. Illo, quasi fugit quae odio autem dolorem eius
+                      fugiat! Voluptatum</p>
+                    <p class="text-muted" style="max-width: 200px;margin:0px;font-size: 0.8rem;"><i
+                        class="bi bi-clock text-muted"></i> 15 Hours Ago</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item dropdown-footer text-center" [routerLink]="['/Notifications']">See All
+              Notifications</a>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="nav-link position-relative p-0 m-2" type="button" id="dropdownMenuNotifications"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-chat-dots"></i>
+            <small><span class="position-absolute  translate-middle badge rounded-pill bg-danger">2</span></small>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuNotifications">
+            <span class="dropdown-header text-center">Messages</span>
+
+            <li>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/Message/5']">
+                <div class="media">
+                  <img
+                    src="https://github.com/ColorlibHQ/AdminLTE/blob/master/docs/assets/img/user1-128x128.jpg?raw=true"
+                    class="messageImg " alt="">
+                  <div class="media-body">
+                    <div class="dropdown-item-title">Maghrebi Lassad
+                      <span><i class="bi bi-check-circle" style="color: rgb(4, 29, 255);"></i></span>
+                    </div>
+                    <p class="d-inline-block text-truncate" style="max-width: 200px;margin:0px;font-size: 0.8rem;">Lorem
+                      ipsum dolor sit, amet consectetur adipisicing elit. Illo, quasi fugit quae odio autem dolorem eius
+                      fugiat! Voluptatum</p>
+                    <p class="text-muted" style="max-width: 200px;margin:0px;font-size: 0.8rem;"><i
+                        class="bi bi-clock text-muted"></i> 15 Hours Ago</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item dropdown-footer text-center" [routerLink]="['/Messages']">See All Messages</a>
+          </ul>
+        </li>
+        <li><a class="btnSignOut btn btn-outline-light" (click)="signOut()">Sign-Out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

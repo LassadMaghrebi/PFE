@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 
@@ -10,22 +11,34 @@ import { AuthentificationService } from '../services/authentification.service';
 })
 export class SigninComponent implements OnInit {
 
-
-  constructor(private http:HttpClient,private router:Router,private auth:AuthentificationService) { }
-  erreur=""
+  playerSignInForm!: FormGroup;
+  constructor(private formbuilder: FormBuilder, private router: Router, private auth: AuthentificationService) { }
+  erreur = ""
+  submitted = false
+  loading=false
   ngOnInit(): void {
-  }
-  submit(f:any){
-    this.erreur=""
-    this.auth.login(f.value).subscribe((resp:any)=>{
-      if(resp){
-        sessionStorage.setItem("username",resp.name)
-        sessionStorage.setItem("userId",resp.id)
-        this.router.navigateByUrl("/home")
-      }else{
-        this.erreur="Verify your username Or password"
-      }
+    this.playerSignInForm = this.formbuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     })
+  }
+  submit() {
+    this.submitted = true;
+    if (this.playerSignInForm.valid) {
+      this.erreur = ""
+      this.auth.signin(this.playerSignInForm.value).subscribe((resp: any) => {
+        console.log(resp)
+        this.loading=false
+        sessionStorage.setItem("token", resp.Token)
+        this.auth.LoggedIn()
+        this.router.navigateByUrl('/home')
+      }, err => {
+        this.loading=false
+        this.erreur = err.error.message
+        console.log(err.error.message)
+        //this.erreur = "Verify your username Or password"
+      })
+    }
   }
 
 }

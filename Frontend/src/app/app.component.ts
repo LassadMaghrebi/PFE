@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from './rest.service';
-import { Users } from './Users';
 
 @Component({
   selector: 'app-root',

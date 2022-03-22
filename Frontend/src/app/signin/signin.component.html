@@ -1,26 +1,39 @@
 <div class="row">
     <div class="col-md-4">
-        
-        <form class="container " #f="ngForm" (ngSubmit)="submit(f)">
+        <form class="container"(ngSubmit)="submit()" [formGroup]="playerSignInForm" >
             <img src="../../assets/AvatarPlayer.png" width=150px; class="avatar">
             <h1 class="text">WELCOME</h1>
             <div class="c">
             <div class="mb-3 " >
-          <input type="text"  placeholder="Username" class="form-control form-control-lg" name="email" ngModel>
+          <input type="text"  placeholder="Username" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && playerSignInForm.controls.email.errors }" formControlName="email" >
+          <div *ngIf="submitted && playerSignInForm.controls.email.errors" class="invalid-feedback">
+            <div *ngIf="playerSignInForm.controls.email.errors.required">Email Adress is required</div>
+            <div *ngIf="playerSignInForm.controls.email.errors && !playerSignInForm.controls.email.errors.required">Please enter a valide e-mail adress</div>
+        </div>
             </div>
             <div class="mb-3 ">
-              <input type="password" placeholder="Password" class="form-control form-control-lg" name="password" ngModel>
+              <input type="password" placeholder="Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && playerSignInForm.controls.password.errors }" formControlName="password" >
+              <div *ngIf="submitted && playerSignInForm.controls.password.errors" class="invalid-feedback">
+                <div *ngIf="playerSignInForm.controls.password.errors.required">Password is required</div>
+                <div *ngIf="playerSignInForm.controls.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
             </div>
           </div>
           <div class="form-text text-danger" >{{erreur}}</div>
             <div class="mb-3 position-relative">
-              <a class="position-absolute top-0 end-0" href="#" >Forgot Password ?</a>
+              <a class="position-absolute top-0 end-0" [routerLink]="['/forgot-password']" >Forgot Password ?</a>
             </div>
-            <div class="mb-3 d-grid gap-2 mt-5">
-                <button class="btn btn-lg" type="submit"><strong>Sign In</strong></button>
+            <div class="mb-3 d-grid gap-2 mt-5" *ngIf="!loading">
+                <button class="btn btn-lg" type="submit" ><strong>Sign In</strong></button>
+            </div>
+            <div class="mb-3 d-grid gap-2 mt-5" *ngIf="loading">
+            <button class="btn btn-lg sp" type="button" disabled>
+              <strong>Sign In</strong>
+              <span class="spinner-border spinner-border-sm ms-3" role="status" aria-hidden="true"></span>
+            </button>
             </div>
         </form>
         <h4 class="text mb-3">Dont have an account ? <a [routerLink]="['/Signup']">Sign Up</a></h4> 
-        <h6 class="text">Are you a staduim owner ? <a [routerLink]="['/owner-Signin']">Click Here</a></h6> 
+        <h6 class="center">Are you a staduim owner ? <a [routerLink]="['/owner-Signin']">Click Here</a></h6> 
     </div>
 </div>

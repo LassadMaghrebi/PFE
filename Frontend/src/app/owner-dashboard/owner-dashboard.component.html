@@ -11,7 +11,6 @@
         </button>
       </div>
       <div class="col days" *ngFor="let d of days">
-
         <div *ngIf="d!=days[6]">
           {{ weekDays[d.getDay()] }} <br>{{d.toDateString().slice(4,10)}}
         </div>
@@ -52,7 +51,7 @@
   </div>
   <div class="col ">
     <ul class="list-group contenu">
-      <li class="list-group-item" *ngFor="let r of reservation; let i = index">Reservation N°{{i}}
+      <li class="list-group-item" *ngFor="let r of reservation; let i = index" >Reservation N°{{i}}
         <button type="button" class="btn btn-primary btn-sm ms-1" style="color: white; padding: 0px;float: right;">
           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-check-lg"
             viewBox="0 0 16 16">

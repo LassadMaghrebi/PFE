@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Reservation } from '../Reservation';
+import { Reservation } from '../models/Reservation';
 
 @Component({
   selector: 'app-owner-dashboard',
@@ -44,7 +44,15 @@ export class OwnerDashboardComponent implements OnInit {
     return (x+a.date.getHours()*60+a.date.getMinutes())-480
   }
   back(){
+    this .reservation=[]
     this.today.setDate(this.today.getDate()-7)
+    let p=this.today.toLocaleDateString().split('/')
+    let s=p[2]+'-'+p[1]+'-'+p[0]
+    this.http.get("http://localhost:8080/reservations/"+s).subscribe((res:any)=>{
+      res.forEach((resp:any) => {
+        this.reservation.push(new Reservation(resp.resId,resp.userId,new Date(resp.date)))
+      });
+    })
     let d=new Date(this.today)
     this.days=[]
     for (let i = 0; i < 7; i++) {
@@ -53,7 +61,15 @@ export class OwnerDashboardComponent implements OnInit {
     }
   }
   next(){
+    this.reservation=[]
     this.today.setDate(this.today.getDate()+7)
+    let p=this.today.toLocaleDateString().split('/')
+    let s=p[2]+'-'+p[1]+'-'+p[0]
+    this.http.get("http://localhost:8080/reservations/"+s).subscribe((res:any)=>{
+      res.forEach((resp:any) => {
+        this.reservation.push(new Reservation(resp.resId,resp.userId,new Date(resp.date)))
+      });
+    })
     let d=new Date(this.today)
     this.days=[]
     for (let i = 0; i < 7; i++) {

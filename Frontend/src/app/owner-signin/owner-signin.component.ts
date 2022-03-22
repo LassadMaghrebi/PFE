@@ -16,7 +16,7 @@ export class OwnerSigninComponent implements OnInit {
   }
   submit(f:any){
     this.erreur=""
-    this.auth.login(f.value).subscribe((resp:any)=>{
+    this.auth.signin(f.value).subscribe((resp:any)=>{
       if(resp){
         sessionStorage.setItem("username",resp.name)
         sessionStorage.setItem("userId",resp.id)

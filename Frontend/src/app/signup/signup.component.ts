@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 
@@ -9,36 +10,47 @@ import { AuthentificationService } from '../services/authentification.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
-  constructor(private http:HttpClient,private router:Router,private auth:AuthentificationService) { }
-  erreur=""
+  playerSignUpForm!: FormGroup;
+  constructor(private formbuilder: FormBuilder,private router:Router,private auth:AuthentificationService) { }
+  error=""
+  emailError=""
+  passwordError=""
+  submitted = false
   ngOnInit(): void {
-  }
-  verif=false
-  email=""
-  submit(f:any){
-    if(f.name.length>3 && f.age>16 && (f.password==f.cpwd)&& this.verif){
-    this.auth.register(f).subscribe((resp:any)=>{
-      if(resp){
-        console.log(resp)
-        this.router.navigateByUrl('/home')
-        sessionStorage.setItem("username",resp.name)
-        sessionStorage.setItem("userId",resp.id)
-      }
+    this.playerSignUpForm = this.formbuilder.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      age: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     })
+  }
+  t:any
+  verif=false
+  submit(){
+    this.submitted = true;
+    this.passwordError=""
+    if(this.playerSignUpForm.value.password!=this.playerSignUpForm.value.confirmPassword) {this.passwordError="Wrong Confirm Password";}
+    if(this.playerSignUpForm.value.password==this.playerSignUpForm.value.confirmPassword&&this.verif &&this.submitted &&this.playerSignUpForm.valid){       
+      this.playerSignUpForm.value.confirmPassword=""     
+    this.auth.signUp(this.playerSignUpForm.value).subscribe((resp:any)=>{
+        this.router.navigateByUrl('/Signin')
+      }, err => {
+        this.error = err.error.message
+      })
   }
   }
   verifEmail(){
-    this.erreur=""
-    if(this.email!=""){
-    this.http.get("http://localhost:8080/clients/find/"+this.email).subscribe((resp:any)=>{
-      console.log(resp)
-      if(resp==null){
-        this.erreur=""
+    this.emailError=""
+    if(this.playerSignUpForm.value.email!=""){
+    this.auth.verifEmail(this.playerSignUpForm.value.email).subscribe((resp:any)=>{
+      if(resp.message==false){
+        this.emailError=""
         this.verif=true
       }else{
         this.verif=false
-        this.erreur="Email Deja existe"
+        this.emailError="Email Deja existe"
       }
     })
   }

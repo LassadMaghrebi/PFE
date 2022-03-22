@@ -25,11 +25,16 @@ input{
     margin:auto;
     display:flex;
 }
-.text{
+.center{
     text-align: center;
 }
   button{
     background-color: #ACD716; 
+    color: white; 
+    border-radius: 60px;
+  }
+  button.sp{
+    background-color: #647c0c; 
     color: white; 
     border-radius: 60px;
   }

@@ -19,7 +19,7 @@ export class OwnerSignupComponent implements OnInit {
   position=""
   submit(f:any){
     if(f.name.length>3 && f.age>16 && (f.password==f.cpwd)&& this.verif){
-    this.auth.register(f).subscribe((resp:any)=>{
+    this.auth.signUp(f).subscribe((resp:any)=>{
       if(resp){
         console.log(resp)
         this.router.navigateByUrl('/Dashboard')

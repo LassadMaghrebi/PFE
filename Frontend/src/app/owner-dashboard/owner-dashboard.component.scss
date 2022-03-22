@@ -1,3 +1,4 @@
+$color: #f21e4e;
 .hours{
     height: 59px;
     margin-bottom: 1px;
@@ -5,13 +6,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #9e9e9e;
+    color: #29303A;
 }
 .days{
-    background-color: #f21e4e;
     height: 59px;
     margin: 1px;
-    color: white;
+    color: #29303A;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -57,22 +57,24 @@ th,div{
     }
 }
 .back{
-    color: white;
-    background-color: #f21e4e;
+    color: #29303A;
     padding: 0px;
     width: 100%;
     height: 100%;
     border-radius: 25px 0 0 0;
 }
 .back:hover,.days:last-child:hover{
-    background-color: #a50127;
+    background-color: #29303A;
+    color: #ffffff;
 }
 .next{
-    color: white;
-    background-color: transparent;
+    color: #29303A;
     padding: 0px;
     margin: 0px;
     width: 100%;
     height: 100%;
     border-radius:  0 25px 0 0;
+}
+.next:hover{
+    color: #ffffff;
 }

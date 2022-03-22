@@ -1,28 +1,49 @@
 <div class="row">
     <div class="col-md-4">
-        <form class="container " #f="ngForm" (ngSubmit)="submit(f.value)">
+        <form class="container " [formGroup]="playerSignUpForm"  (ngSubmit)="submit()">
             <img src="../../assets/AvatarPlayer.png" width=150px; class="avatar">
             <h1 class="text">WELCOME</h1>
             <div class="c">
                 <div class="mb-3 " >
-                    <input type="text"  placeholder="Name" class="form-control form-control-lg" name="name" ngModel>
+                    <input type="text"  placeholder="First Name" class="form-control form-control-lg" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls.firstname.errors }">
+                    <div *ngIf="submitted && playerSignUpForm.controls.firstname.errors" class="invalid-feedback">
+                        <div *ngIf="playerSignUpForm.controls.firstname.errors.required">Please enter your First Name</div>
+                    </div>
                 </div>
                 <div class="mb-3 " >
-                    <input type="email"  placeholder="email" (blur)="verifEmail()" class="form-control form-control-lg" name="email" [(ngModel)]=email>
-                    <div class="form-text text-danger" >{{erreur}}</div>
+                    <input type="text"  placeholder="Last Name" class="form-control form-control-lg" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls.lastname.errors }">
+                    <div *ngIf="submitted && playerSignUpForm.controls.lastname.errors" class="invalid-feedback">
+                        <div *ngIf="playerSignUpForm.controls.lastname.errors.required">Please enter your Last Name</div>
+                    </div>
                 </div>
                 <div class="mb-3 " >
-                    <input type="number"  placeholder="Age" class="form-control form-control-lg" name="age" ngModel>
+                    <input type="email"  placeholder="email" (blur)="verifEmail()" class="form-control form-control-lg" formControlName="email" name="email"  [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls.email.errors }">
+                    <div *ngIf="submitted && playerSignUpForm.controls.email.errors" class="invalid-feedback">
+                        <div *ngIf="playerSignUpForm.controls.email.errors.required">Email Adress is required</div>
+                        <div *ngIf="playerSignUpForm.controls.email.errors && !playerSignUpForm.controls.email.errors.required">Please enter a valide e-mail adress</div>
+                    </div>
+                    <div class="form-text text-danger" >{{emailError}}</div>
+                </div>
+                <div class="mb-3 " >
+                    <input type="number"  placeholder="Age" class="form-control form-control-lg" formControlName="age" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls.age.errors }">
+                    <div *ngIf="submitted && playerSignUpForm.controls.age.errors" class="invalid-feedback">
+                        <div *ngIf="playerSignUpForm.controls.age.errors.required">Please enter your Last Name</div>
+                    </div>
                 </div>
                 <div class="mb-3 ">
-                    <input type="password" placeholder="Password" class="form-control form-control-lg" name="password" ngModel>
+                    <input type="password" placeholder="Password" class="form-control form-control-lg" formControlName="password" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls.password.errors }">
+                    <div *ngIf="submitted && playerSignUpForm.controls.password.errors" class="invalid-feedback">
+                        <div *ngIf="playerSignUpForm.controls.password.errors.required">Password is required</div>
+                        <div *ngIf="playerSignUpForm.controls.password.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
                 </div>
                 <div class="mb-3 ">
-                    <input type="password" placeholder="Confirm Password" class="form-control form-control-lg" name="cpwd" ngModel>
+                    <input type="password" placeholder="Confirm Password" class="form-control form-control-lg" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls.confirmPassword.errors }">
+                    <div class="form-text text-danger text-center">{{passwordError}}</div>
                 </div>
             </div>
             <div class="mb-3 d-grid gap-2 mt-5">
-                <button class="btn btn-lg"  [disabled]=!verif  type="submit"><strong>Sign Up</strong></button>
+                <button class="btn btn-lg"   type="submit"><strong>Sign Up</strong></button>
             </div>
         </form>
         <h4 class="text mb-3">Already Have an account ? <a [routerLink]="['/Signin']">Sign In</a></h4> 
