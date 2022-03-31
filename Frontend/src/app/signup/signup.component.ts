@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   emailError=""
   passwordError=""
   submitted = false
+  verif=false
   ngOnInit(): void {
     this.playerSignUpForm = this.formbuilder.group({
       firstname: ['', Validators.required],
@@ -26,18 +27,17 @@ export class SignupComponent implements OnInit {
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     })
   }
-  t:any
-  verif=false
   submit(){
     this.submitted = true;
     this.passwordError=""
-    if(this.playerSignUpForm.value.password!==this.playerSignUpForm.value.confirmPassword)this.passwordError="Wrong Confirm Password"
-    if(this.playerSignUpForm.value.password===this.playerSignUpForm.value.confirmPassword&&this.verif &&this.submitted &&this.playerSignUpForm.valid){ 
-      this.playerSignUpForm.value.confirmPassword=""     
-    this.auth.signUp(this.playerSignUpForm.value).subscribe((resp:any)=>{
-        // sessionStorage.setItem("token", resp.Token)
-        // this.auth.loggedIn.next(false)
-        // this.router.navigateByUrl('/home')
+    this.error =""
+    if(this.playerSignUpForm.value.password!=this.playerSignUpForm.value.confirmPassword)this.passwordError="Wrong Confirm Password"
+    if(this.playerSignUpForm.value.password===this.playerSignUpForm.value.confirmPassword&&/*this.verif*/true &&this.submitted &&this.playerSignUpForm.valid){ 
+      this.playerSignUpForm.value.confirmPassword=""    
+      console.log(this.playerSignUpForm.value);  
+    this.auth.signUp(this.playerSignUpForm.value).subscribe(resp=>{
+      
+         this.router.navigateByUrl('/home')
       }, err => {
         this.error = err.error.message
       })

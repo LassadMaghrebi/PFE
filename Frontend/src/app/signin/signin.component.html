@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <form class="container"(ngSubmit)="submit()" [formGroup]="playerSignInForm" >
             <img src="../../assets/AvatarPlayer.png" width=150px; class="avatar">
-            <h1 class="text">WELCOME</h1>
+            <h1 class="text-center">WELCOME</h1>
             <div class="c">
             <div class="mb-3 " >
           <input type="text"  placeholder="Username" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && playerSignInForm.controls['email'].errors }" formControlName="email" >
