@@ -5,7 +5,7 @@
             <h1 class="text">WELCOME</h1>
             <div class="c">
                 <div class="mb-3 " >
-                    <input type="text"  placeholder="First Name" class="form-control form-control-lg" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls['firstname'].errors }">
+                    <input type="text"  placeholder="First Name" class="form-control form-control-lg" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls['firstname'].errors}">
                     <div *ngIf="submitted && playerSignUpForm.controls['firstname'].errors" class="invalid-feedback">
                         <div *ngIf="playerSignUpForm.controls['firstname'].errors">Please enter your First Name</div>
                     </div>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="mb-3 " >
-                    <input type="email"  placeholder="email" (blur)="verifEmail()" class="form-control form-control-lg" formControlName="email" name="email"  [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls['email'].errors }">
+                    <input type="email"  placeholder="email" (blur)="findEmail()" class="form-control form-control-lg" formControlName="email" name="email"  [ngClass]="{ 'is-invalid': submitted && playerSignUpForm.controls['email'].errors }">
                     <div *ngIf="submitted && playerSignUpForm.controls['email'].errors" class="invalid-feedback">
                         <div *ngIf="playerSignUpForm.controls['email'].errors['required']">Email Adress is required</div>
                         <div *ngIf="playerSignUpForm.controls['email'].errors && !playerSignUpForm.controls['email'].errors['required']">Please enter a valide e-mail adress</div>

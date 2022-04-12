@@ -20,7 +20,6 @@ export class ForgotPasswordComponent implements OnInit {
     })
   }
   submit(){
-    
     this.submitted = true;
     this.error=""
     // stop here if form is invalid

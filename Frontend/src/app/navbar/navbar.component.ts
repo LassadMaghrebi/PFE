@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   }
   signOut(){
     this.loggedin=false
-    this.auth.signOut()
+  
   }
 
 }

@@ -1,9 +1,10 @@
 const express = require("express");
 const bodyParser=require('body-parser')
-const mongoose=require('./Config/dbConnect')
+require('./Config/dbConnect')
+require('dotenv').config()
 const cors = require("cors");
+
 const authRoutes = require('./Routes/auth.routes')
-const dotenv =require('dotenv').config()
 
 const app = express();
 app.use(bodyParser.json())

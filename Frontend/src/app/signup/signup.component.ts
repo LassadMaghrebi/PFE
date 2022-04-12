@@ -43,10 +43,10 @@ export class SignupComponent implements OnInit {
       })
   }
   }
-  verifEmail(){
+  findEmail(){
     this.emailError=""
     if(this.playerSignUpForm.value.email!=""){
-    this.auth.verifEmail(this.playerSignUpForm.value.email).subscribe((resp:any)=>{
+    this.auth.findEmail(this.playerSignUpForm.value.email).subscribe((resp:any)=>{
       console.log(resp)
       if(resp.message==false){
         this.emailError=""

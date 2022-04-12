@@ -4,5 +4,6 @@ const authController=require('../Controllers/authController')
 router.post('/signup',authController.signup)
 router.post('/signin',authController.signin)
 router.get('/confirmEmail/:token',authController.confirmEmail)
-
+router.post('/forgot-password',authController.forgotPassword)
+router.post('/reset-password',authController.resetPassword)
 module.exports = router

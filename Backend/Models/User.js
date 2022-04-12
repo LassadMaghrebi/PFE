@@ -11,7 +11,7 @@ const UserSchema=mongose.Schema({
         unique: true
     },
     phone:String,
-    age:String,
+    age:Number,
     password:{
         type: String,
         required: true
@@ -20,10 +20,6 @@ const UserSchema=mongose.Schema({
         type:String,
         enum: [ "PLAYER", "OWNER"],
         default:"PLAYER"
-    },
-    DeconnectionTime: {
-        type: Date,
-        default: Date.now()-1,
     },
     accountStatus: {
         type: Boolean,

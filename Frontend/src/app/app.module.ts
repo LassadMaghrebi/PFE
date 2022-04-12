@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { HomeComponent } from './home/home.component';
+import { StadiumComponent } from './stadium/stadium.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     DashboardComponent,
     FooterComponent,
     NavbarComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    HomeComponent,
+    StadiumComponent
   ],
   imports: [
     BrowserModule,
