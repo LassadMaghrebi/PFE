@@ -97,7 +97,6 @@ exports.signout = (req, res) => {
   }
 }
 exports.confirmEmail = async (req, res) => {
-
   try {
     const token = req.params.token
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
@@ -171,7 +170,7 @@ exports.resetPassword = async (req, res) => {
   if (decoded.user.sub != "Reset Password") return res.status(401).json({ message: "Please Use a valid token" });
   const salt = bcrypt.genSaltSync(10);
   const password = bcrypt.hashSync(req.body.password, salt);
-  let userInformations = await User.findById(decoded.user.userId);
+  let userInformations = await User.findById(decoded.user.userId)
   if (bcrypt.compareSync(req.body.password, userInformations.password)) return res.status(400).json({ message: "Please don't use the same password" });
   if (userInformations.passwordChangeDate * 1 + 3600000 > Date.now()) return res.status(400).json({ message: "You alredy changed your password last 24 hours" });
   User.findByIdAndUpdate(decoded.user.userId, { $set: { password: password, passwordChangeDate: Date.now(),DeconnectionTime: Date.now() } }, function (err, result) {
@@ -179,10 +178,27 @@ exports.resetPassword = async (req, res) => {
     return res.status(400).json({ message: 'Email Verification error' });
   })
 }
+exports.changePassword = async (req, res) => {
+  try {
+    const userInformations=await User.findById(req.body.user)
+    if (!bcrypt.compareSync(req.body.password, userInformations.password))return res.status(400).json({message: "Incorrect Password !"});
+    if (bcrypt.compareSync(req.body.newPassword, userInformations.password)) return res.status(400).json({ message: "Please don't use the same password" });
+    if (userInformations.passwordChangeDate * 1 + 3600000 > Date.now()) return res.status(400).json({ message: "You alredy changed your password last 24 hours" });
+    const salt = bcrypt.genSaltSync(10);
+    const newPassword = bcrypt.hashSync(req.body.newPassword, salt);
+    User.findByIdAndUpdate(req.body.user,{password:newPassword,passwordChangeDate: Date.now(),DeconnectionTime: Date.now()},(err,result)=>{
+      if (err) res.status(400).json({ message: 'Error Password could be changed' });
+      if (result)return res.status(200).json({ message: "Your password has been changed successfully" })
+    })
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ message: "Server Error." });
+    
+  }
+}
 exports.disableUsersAccount = (req, res) => {
   try {
-    
-    const user=User.findByIdAndUpdate(req.body.id, { $set: { accountStatus: false, DeconnectionTime: Date.now() } }, function (err, result) {
+    const user=User.findByIdAndUpdate(req.body.id, { $set: { accountStatus: false, DeconnectionTime: Date.now() } },(err, result)=> {
       if (result) return res.status(200).json({ message: "Account"+user.firstname+"Blocked" });
       if(err) return res.status(400).json({ message: "Erreur" });
 
@@ -197,7 +213,6 @@ exports.activateUsersAccount = (req, res) => {
     User.findByIdAndUpdate(req.body.id, { $set: { accountStatus: true } },(err, result)=> {
       if (result) return res.status(200).json({ message: "Account "+user.firstname+" was activated" });
       if(err) return res.status(400).json({ message: "Erreur" });
-
     })
   } catch (e) {
     console.error(e);
@@ -206,7 +221,7 @@ exports.activateUsersAccount = (req, res) => {
 }
 exports.getAllUsers = (req, res) => {
   try {
-    User.find(function (err, result) {
+    User.find((err, result)=> {
       if (result)return res.status(200).json(result)
       if(err) return res.status(400).json({ message: "Erreur" });
     })
@@ -217,8 +232,7 @@ exports.getAllUsers = (req, res) => {
 }
 exports.findByEmail =async (req, res) => {
   try {
-    // await User.findOneAndUpdate({ email: req.body.email }, { $push:{ images:{url:"imgurl",uploaded: Date.now()} }})
-    User.findOne({ email: req.body.email }, function (err, result) {
+    User.findOne({ email: req.body.email },(err, result)=>{
       if (result)return res.status(200).json({message:true})
       if (!result)return res.status(200).json({message:false})
       if(err) return res.status(400).json({ message: "Erreur" });
@@ -240,48 +254,72 @@ exports.findByEmail =async (req, res) => {
 //   }
 // }
 
-const accountSid = 'ACcd42c602c83287ff0a65d3e1a50fb2ef';
-const authToken = 'bc2a85c1a1e8dacd08c354eae026ed4f';
-const client = require('twilio')(accountSid, authToken);
-exports.addPhoneNumber = async (req, res) => {
-  const token = req.header("token");
-  console.log(req.body);
-  try {
-    let x=Math.floor(Math.random() * 1000000)
-    // client.messages.create({
-    //   body: ' Hr-Sport '+x,
-    //   from: '+14707228531',
-    //   to: req.body.phone
-    // }).then(message => console.log(message.sid)
-    // ).catch(err =>  res.status(400).send({ message: "Please use a valid phone number"})); 
-    let user =await User.findByIdAndUpdate(req.body.user,{ $set: { phone:{
+// const accountSid = 'ACcd42c602c83287ff0a65d3e1a50fb2ef';
+// const authToken = 'bc2a85c1a1e8dacd08c354eae026ed4f';
+// const client = require('twilio')(accountSid, authToken);
+// exports.addPhoneNumber = async (req, res) => {
+//   const token = req.header("token");
+//   console.log(req.body);
+//   try {
+//     let x=Math.floor(Math.random() * 1000000)
+//     // client.messages.create({
+//     //   body: ' Hr-Sport '+x,
+//     //   from: '+14707228531',
+//     //   to: req.body.phone
+//     // }).then(message => console.log(message.sid)
+//     // ).catch(err =>  res.status(400).send({ message: "Please use a valid phone number"})); 
+//     let user =await User.findByIdAndUpdate(req.body.user,{ $set: { phone:{
       
-      number: req.body.phone,
-      verified:false,
-      verificationCode: x,
-      verificationCodeExpireDate:Date.now()+60000
-    } 
-    }})
-    res.status(200).json({ message: "Verification code send "})
+//       number: req.body.phone,
+//       verified:false,
+//       verificationCode: x,
+//       verificationCodeExpireDate:Date.now()+60000
+//     } 
+//     }})
+//     res.status(200).json({ message: "Verification code send "})
     
-  }catch(e){
-    res.status(200).json({ message: "Verification code send "})
-  }
-}
-exports.verifPhoneNumber = async (req, res) => {
-  try {
-    let userInformations =await User.findById(req.body.user)
-    if(userInformations.phone.verificationCodeExpireDate<Date.now())return res.status(400).json({ message: "Verification code expire try again"})
-    if(req.body.code==userInformations.phone.verificationCode.toString()){
-    await User.findByIdAndUpdate(req.body.user,{ $set: { phone:{
-      verified:true,
-      number:userInformations.phone.number
-    } 
-    }})
-    res.status(200).json({ message: "Phone number verified"})
-   } else res.status(400).json({ message: "Verification code wrong"})
+//   }catch(e){
+//     res.status(200).json({ message: "Verification code send "})
+//   }
+// }
+// exports.verifPhoneNumber = async (req, res) => {
+//   try {
+//     let userInformations =await User.findById(req.body.user)
+//     if(userInformations.phone.verificationCodeExpireDate<Date.now())return res.status(400).json({ message: "Verification code expire try again"})
+//     if(req.body.code==userInformations.phone.verificationCode.toString()){
+//     await User.findByIdAndUpdate(req.body.user,{ $set: { phone:{
+//       verified:true,
+//       number:userInformations.phone.number
+//     } 
+//     }})
+//     res.status(200).json({ message: "Phone number verified"})
+//    } else res.status(400).json({ message: "Verification code wrong"})
 
-  }catch(e){
-    res.status(200).json({ message: "Server Error."})
+//   }catch(e){
+//     res.status(200).json({ message: "Server Error."})
+//   }
+// }
+const multer = require('multer'); 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log(file);
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) { 
+    cb(null, file.fieldname + '-' + Date.now() +file.originalname);
   }
+})
+let upload = multer({ storage: storage}).array('image',10);
+exports.upload =(req, res) => {
+  upload(req,res,(err)=>{
+    console.log(req.body);
+    console.log(req.file)
+    // User.findOneAndUpdate({ email: req.body.email }, { $push:{ images:{url:req.file.filename,uploaded: Date.now()} }},(err,result)=>{
+    //   if (result) res.status(200).json({message:"image is uploaded successfully!"})
+    // })
+    if(err) {  
+        return res.end("Error uploading file.");  
+    }  
+    res.end("File is uploaded successfully!");  
+});  
 }

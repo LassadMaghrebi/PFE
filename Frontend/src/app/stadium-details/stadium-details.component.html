@@ -1,0 +1,9 @@
+<form class="container " (ngSubmit)="submit()">
+<div class="mb-3">
+    <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+    <input class="form-control" (change)="upload($event)" type="file" id="image" name="image"  accept="image/png, image/jpeg" multiple>
+  </div>
+  <div class="mb-3 d-grid gap-2 mt-5">
+    <button class="btn btn-lg"   type="submit"><strong>Sign Up</strong></button>
+</div>
+</form>

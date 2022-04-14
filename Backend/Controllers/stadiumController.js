@@ -1,15 +1,31 @@
 const Stadium = require("../models/Stadium");
 exports.AddStadium = async (req, res) => {
     try {
-        await Stadium(req.body).save()
-        return res.status(200).json({ message: "Your Demande Is Submitted We Contact You soon" });
+       await Stadium(req.body).save().then(()=> {
+            return res.status(200).json({ message: "Your Demande Is Submitted We Contact You soon" });
+        }).catch((error) => {
+            return res.status(404).json({ message: "Erreur d'ajout" })
+        })
+    } catch (e) {
+        res.status(500).send({ message: e.error || "server error" });
+    }
+}
+exports.getAllStadiums =async (req, res) => {
+    console.log(req.query);
+    if(req.query.page==null||isNaN(req.query.page)) req.query.page=0
+    if(req.query.ville==null) req.query.ville=""
+    try {
+        Stadium.find({ 'adress.city':{ $regex: req.query.ville }},(err, result) => {
+            if (result) return res.status(200).json(result)
+            if (err) return res.status(404).json({ message: "No Staduims Found" })
+        }).skip(req.query.page*12).limit(12).sort({name:1})
     } catch (e) {
         res.status(500).send({ message: e || "server error" });
     }
 }
-exports.getAllStadiums = (req, res) => {
+exports.getStadiumById = (req, res) => {
     try {
-        Stadium.find((err, result) => {
+        Stadium.findById(req.body.stadiumId,(err, result) => {
             if (result) return res.status(200).json(result)
             if (err) return res.status(404).json({ message: "No Staduims Found" })
         })
@@ -23,7 +39,7 @@ exports.getStadiumsByName = (req, res) => {
         Stadium.find({ name: { $regex: name } }, (err, result)=> {
             if (result) return res.status(200).json(result)
             if (err) return res.status(404).json({ message: "No Staduims Found" })
-        })
+        }).limit(10)
     } catch (e) {
         res.status(500).send({ message: e });
     }
@@ -33,7 +49,7 @@ exports.getStadiumsByRating = (req, res) => {
         Stadium.find({ rating: { $gte: req.body.rating } }, function (err, result) {
             if (result) return res.status(200).json(result)
             if (err) return res.status(404).json({ message: "No Staduims Found" })
-        })
+        }).limit(10)
     } catch (e) {
         res.status(500).send({ message: e });
     }
@@ -43,7 +59,7 @@ exports.getStadiumsByCity = (req, res) => {
         Stadium.find({ 'adress.city': req.body.city }, function (err, result) {
             if (result) return res.status(200).json(result)
             if (err) return res.status(404).json({ message: "No Staduims Found" })
-        })
+        }).limit(10)
     } catch (e) {
         console.error(e);
         res.status(500).send({ message: e });

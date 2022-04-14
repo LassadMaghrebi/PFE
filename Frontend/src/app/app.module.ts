@@ -18,12 +18,12 @@ import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
-import { TestComponent } from './test/test.component';
+
 import { StadiumsComponent } from './stadiums/stadiums.component';
-import { MapComponent } from './map/map.component';
 import { SearchComponent } from './search/search.component';
 import { StadiumComponent } from './stadium/stadium.component';
+import { StadiumDetailsComponent } from './stadium-details/stadium-details.component';
+import { PlayerProfileComponent } from './player-profile/player-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,11 +39,11 @@ import { StadiumComponent } from './stadium/stadium.component';
     HomeComponent,
     ForgotPasswordComponent,
     AdminDashboardComponent,
-    TestComponent,
     StadiumsComponent,
-    MapComponent,
     SearchComponent,
-    StadiumComponent
+    StadiumComponent,
+    StadiumDetailsComponent,
+    PlayerProfileComponent
   ],
   imports: [
     BrowserModule,

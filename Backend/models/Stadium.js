@@ -40,7 +40,7 @@ const StadiumSchema = mongose.Schema({
     rating: {
         rates: {
             type: Number,
-            default: 1
+            default: 3
         },
         number: {
             type: Number,
@@ -48,6 +48,10 @@ const StadiumSchema = mongose.Schema({
         },
     },
     field: {
+        type: Number,
+        default: 1
+    },
+    capacity: {
         type: Number,
         default: 1
     },

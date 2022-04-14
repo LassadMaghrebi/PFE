@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
     <a class="navbar-brand active" [routerLink]="['/home']">H-Sports</a>
-    <div class="d-flex btns  d-lg-none">
+    <div class="d-flex btns  d-lg-none" *ngIf="loggedin">
       <div class="dropdown">
         <a class="nav-link position-relative p-0 m-2" type="button" id="dropdownMenuMessage" data-bs-toggle="dropdown"
           aria-expanded="false">
@@ -76,13 +76,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav ">
-        <li class="navItems" [ngClass]="{active: page=='/home'}"><a [routerLink]="['/home']">Home</a></li>
-        <li class="navItems"><a [ngClass]="{active: page=='/stadiums'}" [routerLink]="['/stadiums']">Stadiums</a></li>
-        <li class="navItems "><a [ngClass]="{active: page=='/Dashboard'}" href="#">Dashboard</a></li>
+        <li class="navItems" routerLinkActive="active" [ngClass]="{active: page=='/home'}"><a [routerLink]="['/home']">Home</a></li>
+        <li class="navItems" routerLinkActive="active"><a [ngClass]="{active: page=='/stadiums'}" [routerLink]="['/stadiums']">Stadiums</a></li>
+        <li class="navItems " routerLinkActive="active"><a [ngClass]="{active: page=='/Dashboard'}" href="#">Dashboard</a></li>
       </ul>
       <ul class="navbar-nav btns my-3" *ngIf="!loggedin">
         <li><a class="btnSignin" [routerLink]="['/Signin']">Sign-in</a></li>
         <li><a class="btnSignup" [routerLink]="['/Signup']">Sign-up</a></li>
+      </ul>
+      <ul class="navbar-nav d-lg-none">
+        <li><a class="btnSignOut btn btn-outline-light" (click)="signOut()">Sign-Out</a></li>
       </ul>
       <ul class="navbar-nav btns d-none d-lg-inline-flex" *ngIf="loggedin">
         <li class="dropdown">

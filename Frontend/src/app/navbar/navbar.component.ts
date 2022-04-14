@@ -9,7 +9,7 @@ import { AuthentificationService } from '../services/authentification.service';
 })
 export class NavbarComponent implements OnInit {
   page=""
-  constructor(private auth:AuthentificationService,private route:ActivatedRoute,private router:Router) {
+  constructor(private auth:AuthentificationService) {
     auth.IsLoggedIn().subscribe(res=>{
       this.loggedin=res
     })

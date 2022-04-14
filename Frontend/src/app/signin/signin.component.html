@@ -1,4 +1,17 @@
-<div class="row">
+<div *ngIf="false" class="loading">
+
+  <div style="margin: 0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+    <img src="../../assets/animation_300_l0qgskfn.gif"  alt="">
+  </div>
+</div>
+<!-- <div *ngIf="loading" class="loading">
+
+  <div style="margin: 0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+    <div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;  margin: 0;position: absolute;">
+    </div>
+  </div>
+</div> -->
+<div class="row" *ngIf="true">
     <div class="col-md-4">
         <form class="container"(ngSubmit)="submit()" [formGroup]="playerSignInForm" >
             <img src="../../assets/AvatarPlayer.png" width=150px; class="avatar">

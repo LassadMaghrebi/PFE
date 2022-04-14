@@ -16,6 +16,7 @@ export class SigninComponent implements OnInit {
   erreur = ""
   submitted = false
   loading=false
+  public isVisible: boolean = false
   ngOnInit(): void {
     this.playerSignInForm = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -25,6 +26,7 @@ export class SigninComponent implements OnInit {
   submit() {
     this.submitted = true;
     if (this.playerSignInForm.valid) {
+    this.loading=true
       this.erreur = ""
       this.auth.signin(this.playerSignInForm.value).subscribe((resp: any) => {
         console.log(resp)
@@ -33,8 +35,11 @@ export class SigninComponent implements OnInit {
         this.auth.LoggedIn()
         this.router.navigateByUrl('/home')
       }, err => {
-        this.loading=false
-        this.erreur = err.error.message
+        setTimeout(() => {
+          this.loading=false
+          this.erreur = err.error.message
+        }, 2000);
+        
         console.log(err.error.message)
         //this.erreur = "Verify your username Or password"
       })

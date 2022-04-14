@@ -39,6 +39,13 @@ const UserSchema=mongose.Schema({
             uploaded: { type: Date, default: Date.now() },
         }
     ],
+    avatars: [
+        {
+            url: Buffer,
+            contentType: String,
+            uploaded: { type: Date, default: Date.now() },
+        }
+    ],
     confirmed: {
         type: Boolean,
         default: false
