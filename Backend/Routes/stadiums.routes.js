@@ -13,4 +13,5 @@ router.post('/rating',StadiumController.getStadiumsByRating)
 router.post('/rate',Auth,StadiumController.rateStadium)
 router.post('/verifyStadium',AdminAuth,StadiumController.verifyStadium)
 router.post('/disableStadium',AdminAuth,ownerAuth,StadiumController.disableStadium)
+router.get('/inverified',StadiumController.getInVerifiedStadiums)
 module.exports = router

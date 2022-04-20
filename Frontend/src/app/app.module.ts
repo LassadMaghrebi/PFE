@@ -24,6 +24,11 @@ import { SearchComponent } from './search/search.component';
 import { StadiumComponent } from './stadium/stadium.component';
 import { StadiumDetailsComponent } from './stadium-details/stadium-details.component';
 import { PlayerProfileComponent } from './player-profile/player-profile.component';
+import { TestComponent } from './test/test.component';
+import { OwnerdashboardComponent } from './Owner/ownerdashboard/ownerdashboard.component';
+import { OwnerReservationsComponent } from './Owner/owner-reservations/owner-reservations.component';
+import { OwnerStadiumsComponent } from './Owner/owner-stadiums/owner-stadiums.component';
+import { MapComponent } from './map/map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +48,12 @@ import { PlayerProfileComponent } from './player-profile/player-profile.componen
     SearchComponent,
     StadiumComponent,
     StadiumDetailsComponent,
-    PlayerProfileComponent
+    PlayerProfileComponent,
+    TestComponent,
+    OwnerdashboardComponent,
+    OwnerReservationsComponent,
+    OwnerStadiumsComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

@@ -105,4 +105,16 @@ exports.rateStadium = async (req, res) => {
         res.status(500).send({ message: e });
     }
 }
+exports.getInVerifiedStadiums = (req, res) => {
+    try {
+        Stadium.find({ verified: false }, function (err, result) {
+            if (result) return res.status(200).json(result)
+            if (err) return res.status(404).json({ message: "No Staduims Found" })
+        }).limit(10)
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ message: e });
+    }
+}
+
 

@@ -1,0 +1,153 @@
+<div class="sidebar bg-secondary  d-block d-sm-none">
+    <div class="d-flex justify-content-center fs-3 ">menu
+        <button class="btn btn-secondary py-0 m-0" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <i class="bi bi-list fs-2 "></i>
+        </button>
+    </div>
+    <div class="collapse fs-5 " id="collapseExample">
+        <a class="active link-light " href="">Home</a>
+        <a href="#news" class="link-light">News</a>
+        <a href="#contact" class="link-light">Contact</a>
+        <a href="#about" class="link-light">About</a>
+    </div>
+
+</div>
+<div class="d-none d-sm-block sidebar bg-secondary ">
+        <ul class="nav nav-pills text-center d-none d-sm-block flex-column">
+            <li class="nav-item fs-5 ">
+                <a class="nav-link active link-light" href="#"><i class="bi bi-speedometer2 me-2"></i>Home</a>
+            </li>
+            <li class="nav-item fs-5 ">
+                <a class="nav-link link-light" href="#">News</a>
+            </li>
+            <li class="nav-item fs-5 ">
+                <a class="nav-link link-light" href="#">Contact</a>
+            </li>
+            <li class="nav-item fs-5 ">
+                <a class="nav-link link-light" href="#">About</a>
+            </li>
+        </ul>
+    </div>
+<div class="body">
+    azd
+    <!-- <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col days">
+              <button type="button" class="btn back" (click)="back()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                </svg>
+              </button>
+            </div>
+            <div class="col days" *ngFor="let d of days">
+              <div *ngIf="d!=days[6]">
+                {{ weekDays[d.getDay()] }} <br>{{d.toDateString().slice(4,10)}}
+              </div>
+                <button type="button" class="btn next" (click)="next()" *ngIf="d==days[6]">
+                  {{ weekDays[d.getDay()] }} <br>{{d.toDateString().slice(4,10)}}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                  </svg>
+                </button>
+            </div>
+          </div>
+          <div class="row contenu">
+            <div class="col">
+      
+              <div class="hours " *ngFor="let h of hours">{{ h }} </div>
+      
+            </div>
+            <div class="col" *ngFor="let d of days" style="background-color: #f0f0f0;">
+              <hr *ngFor="let h of hours;let i=index"
+                style="margin: 0px;position: relative;color:gris; opacity: 0.1; width: 100%;height: 1px;"
+                [ngStyle]="{ 'top.px': i*59}" />
+              <div *ngFor="let r of reservation; let i = index">
+                <div class="col" *ngIf="r.date.toLocaleDateString() == d.toLocaleDateString()">
+                  <div class="alert alert-primary reservation " role="alert" [ngStyle]="{ 'top.px': getPosition(r)-16}">
+                    {{ r.date.toLocaleTimeString().slice(0,5)}}-{{ r.date.getHours()+2 }}{{
+                    r.date.toLocaleTimeString().slice(2,5) }}
+                    <hr style="margin: 0px;">
+                    <a href="#" class="alert-link">Lassad</a><br />
+                    Vs <br />
+                    <a href="#" class="alert-link">Maghrebi</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col ">
+          <ul class="list-group contenu">
+            <li class="list-group-item" *ngFor="let r of reservation; let i = index" >Reservation N°{{i}}
+              <button type="button" class="btn btn-primary btn-sm ms-1" style="color: white; padding: 0px;float: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-check-lg"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                </svg>
+              </button>
+              <button type="button" class="btn btn-primary btn-sm " style="color: white; padding: 0px;float: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-x-lg"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                  <path fill-rule="evenodd"
+                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                </svg>
+              </button>
+            </li>
+          </ul>
+          <div class="w-100">
+            <button type="button" class="btn btn-success w-50">Add Staduim</button>
+            <button type="button" class="btn btn-danger w-50" style="float: right;padding-inline: 5px;">Delete
+              Staduim</button>
+          </div>
+        </div>
+      </div> -->
+</div>
+<!-- <div class="sidebar bg-secondary  d-block d-sm-none">
+    <div class="d-flex justify-content-center fs-3 col-md-12 ">menu
+        <button class="btn btn-secondary py-0 m-0" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <i class="bi bi-list fs-2 "></i>
+        </button>
+    </div>
+    <div class="collapse fs-5 " id="collapseExample">
+        <a class="active link-light " href="">Home</a>
+        <a href="#news" class="link-light">News</a>
+        <a href="#contact" class="link-light">Contact</a>
+        <a href="#about" class="link-light">About</a>
+    </div>
+
+</div>
+<div class="d-none  d-sm-block sidebar position-fixed bg-secondary">
+    <ul class="nav  row">
+        <li class="nav-item fs-5 col-sm col-md-12">
+            <a class="nav-link link-light active d-flex" href="#"><i class="bi bi-speedometer2 me-2"></i>Home</a>
+        </li>
+        <li class="nav-item fs-5 col-sm col-md-12">
+            <a class="nav-link link-light " href="#">News</a>
+        </li>
+        <li class="nav-item fs-5 col-sm col-md-12">
+            <a class="nav-link link-light " href="#">News</a>
+        </li>
+        <li class="nav-item fs-5 col-sm col-md-12">
+            <a class="nav-link link-light " href="#">News</a>
+        </li>
+    </ul>
+</div>
+
+<div class="content  ">
+    slkdl
+    klkl
+    <pre>sml;fd
+        sdf
+        sdf
+    </pre>
+</div> -->

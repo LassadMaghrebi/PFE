@@ -40,7 +40,7 @@ export class StadiumsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllStadiums()
+    //this.getAllStadiums()
   }
 focus(e:any){
   this.list=[]
