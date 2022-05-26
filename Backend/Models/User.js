@@ -1,10 +1,10 @@
 const mongose =require('mongoose')
 const UserSchema=mongose.Schema({
-    firstname:{
+    prenom:{
         type: String,
         required: true
     },
-    lastname:String,
+    nom:String,
     email:{
         type: String,
         required: true,
@@ -18,16 +18,24 @@ const UserSchema=mongose.Schema({
     },
     role:{
         type:String,
-        enum: [ "PLAYER", "OWNER"],
+        enum: [ "PLAYER", "proprietaire"],
         default:"PLAYER"
     },
-    accountStatus: {
+    etatDeCompte: {
         type: Boolean,
         default: true
     },
-    confirmed: {
+    emailConfirmer: {
         type: Boolean,
         default: false
+    },
+    image:{
+        type:String,
+        default:'profile.png'
+    },
+    DeconnectionDate: {
+        type: Date,
+        default: Date.now(),
     }
 })
 module.exports =mongose.model('Users',UserSchema)

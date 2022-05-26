@@ -9,16 +9,16 @@ a{
   text-decoration: none;
 }
 .container-fluid {
+  min-height: 84px;
   background-color: #1867d9;
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
 }
 .navbar-toggler{
-    background-color: #fdfdfd;
+  background-color: #fdfdfd;
 }
 .navbar-toggler-icon{
     background-color: white;
-    
 }
 .navItems a,.btnSignOut {
   color: white;
@@ -28,6 +28,7 @@ a{
 }
 li{
     margin: 10px;
+    margin-block: 15px;
 }
 .navItems :hover {
   color: #1867d9;
@@ -42,20 +43,21 @@ li{
   border-radius: 32px;
   padding: 10px;
 }
+// .navbar-brand {
+//   background-color: white;
+//   color: #1867d9;
+//   padding: 10px;
+//   margin: 10px;
+//   font-size: 25px;
+//   font-family: "Fugaz One", cursive;
+//   font-weight: bold;
+//   border-radius: 32px;
+// }
 .navbar-brand {
-  background-color: white;
-  color: #1867d9;
-  padding: 10px;
-  margin: 10px;
-  font-size: 25px;
-  font-family: "Fugaz One", cursive;
-  font-weight: bold;
-  border-radius: 32px;
-}
-.navbar-brand.active {
   background-color: #ACD716;
   color: #ffffff;
-  padding: 10px;
+  padding: 20px;
+  margin: 10px;
   font-size: 25px;
   font-family: "Fugaz One", cursive;
   font-weight: bold;
@@ -68,6 +70,7 @@ li{
   border-radius: 32px;
   font-weight: bold;
   padding: 10px 25px;
+  
 }
 .btnSignin:hover {
   background-color: white;
@@ -87,11 +90,10 @@ li{
   border-radius: 32px;
 }
 .btns{
-    
+    right: 60px;
     margin-left: auto;
 }
 .btnSignOut{
-  
   padding: 15px 20px;
   background-color: #46525b;
 }
@@ -99,19 +101,8 @@ li{
   font-size: 2rem;
   color: white;
 }
-.dropdown-menu-1{
-  max-width: 300px;
-  min-width: 280px;
-  padding: 0;
-  left: -150px;
-}
-.dropdown-menu-2{
-  max-width: 300px;
-  min-width: 280px;
-  padding: 0;
-  left: -200px;
-}
-.messageImg{
+
+.image{
   border-radius: 50%;
   width: 50px;
   vertical-align: middle;
@@ -121,30 +112,21 @@ li{
   display: flex;
   align-items: flex-start;
 }
-@media (max-width: 330px){
+@media (max-width: 350px){
   *{
-      font-size: 10px;
+      font-size: 0.9rem;
   }
-  .bi-bell,.bi-chat-dots{
-    font-size: 0.8rem;
-    color: white;
-  }
-  .dropdown-menu-1{
-    max-width: 240px;
-    min-width: 220px;
-    padding: 0;
-    left: -180px;
-  }
-  .dropdown-menu-2{
-    max-width: 260px;
-    min-width: 240px;
-    padding: 0;
-    left: -200px;
-  }
-  .messageImg{
+  .image{
     border-radius: 50%;
     width: 30px;
     vertical-align: middle;
     margin-right: 1rem;
+  }
+  .dropdown-item{
+    padding: 0px;
+  }
+  .bi-bell{
+    font-size: 1.5rem;
+    color: white;
   }
 }

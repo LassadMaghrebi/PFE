@@ -1,0 +1,228 @@
+<div *ngIf="loading">
+
+    <div style="margin: 0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+      <div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;  margin: 0;position: absolute;">
+      </div>
+    </div>
+  </div>
+<div class="page" *ngIf="!loading">
+    <div class="blue" (click)="visible=false">
+        <h1>Welcome </h1>
+    </div>
+    <div class="input-group">
+        <input class="search" type="search" (input)="focus($event)"
+            placeholder="Search for stadiums and availabilities..">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+    </div>
+    <div class="list">
+        <ul class="list-group" *ngIf="visible">
+            <a class="list-group-item" *ngFor="let s of rechercheListe" [routerLink]="['/stade/'+s._id]">{{s.nom}}</a>
+        </ul>
+    </div>
+    <div class="d-flex text-center mt-2"(click)="visible=false" >
+        <div class="dropdown" style="width: 100%;">
+            <button class="btn dropdown-toggle" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Ville
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ ville: '',page:1 }" routerLinkActive="active"
+                        [queryParamsHandling]="'merge'">
+                        Tous les villes
+                    </a>
+                </li>
+                <li *ngFor="let v of ville">
+                    <a class="dropdown-item" [routerLink]="[]" routerLinkActive="active" [queryParams]="{ ville: v,page:1 }"
+                        [queryParamsHandling]="'merge'">
+                        {{v}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown" style="width: 100%;">
+            <button class="btn dropdown-toggle" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">capacite
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ capacite: 12,page:1 }"[queryParamsHandling]="'merge'">
+                        12 joueurs
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{ capacite: 14,page:1 }">
+                        14 joueurs
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown" style="width: 100%;">
+            <button class="btn dropdown-toggle" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Evaluation
+            </button>
+            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ rating: 5,page:1 }"[queryParamsHandling]="'merge'">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        ou plus
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ rating: 4,page:1 }"[queryParamsHandling]="'merge'">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star"></i>
+                        ou plus
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ rating: 3,page:1 }"[queryParamsHandling]="'merge'">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        ou plus
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ rating: 3,page:1 }"[queryParamsHandling]="'merge'">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        ou plus
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ rating: 2,page:1 }"[queryParamsHandling]="'merge'">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        ou plus
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ rating: 1,page:1 }"[queryParamsHandling]="'merge'">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        ou plus
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown" style="width: 100%;">
+            <button class="btn dropdown-toggle" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Trier par
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ orderBy:'date',page:1 }"[queryParamsHandling]="'merge'">
+                        Date d'ouverture
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ orderBy:'capacite',page:1 }"[queryParamsHandling]="'merge'">
+                        Capacite
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{  orderBy:'capacite',page:1 }">
+                        Evaluation
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="my-5 row " (click)="visible=false">
+        <div class="col-md-6 col-lg-4" *ngFor="let s of stadesListe">
+            <div class="card" [routerLink]="['/stade/'+s._id]">
+                <img src="http://localhost:3000/auth/image/{{s.images[0]}}" alt="" >
+                <h2 class="text-truncate fs-2">{{s.nom}}</h2>
+                <p class="text-truncate"><i class="bi bi-geo-alt"></i>{{s.adresse.ville}}{{s.adresse.rue}}</p>
+                <p ><i class="bi bi-telephone"></i> +216 29 015 535</p>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group dropup ">
+        <button type="button" class="btn btn-secondary dropdown-toggle chatPopup" data-bs-toggle="dropdown"
+        data-bs-auto-close="outside" aria-expanded="false">
+            <i class="bi bi-chat-left-text"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <form class="form container">
+                <label>Summary</label><br>
+                <input class="form-control" type="text"><br>
+                <label>Description</label><br>
+                <textarea class="form-control" rows="3" type="text"></textarea>
+                <label>Your contact e-mail</label><br>
+                <input class="form-control" type="email"><br>
+                <button type="submit" class="btn send">send</button>
+            </form>
+        </ul>
+    </div>
+</div>
+
+<nav [ngStyle]="loading && {'display': 'none'} ||{'display': 'block'}">
+    <ul class="pagination" style="margin-left: auto;
+        margin-right: auto; width: max-content;">
+        <li class="page-item" [ngClass]="{ 'disabled': activatePage==pages[0]}">
+            <a class="page-link" aria-label="Previous" [routerLink]="[]" [queryParams]="{ page: activatePage-1 }"
+            [queryParamsHandling]="'merge'">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <div *ngIf="activatePage-2>pages[0]&& pages.length>6">
+            <li class="page-item" routerLinkActive="active" ><a class="page-link"
+                [routerLink]="[]" [queryParams]="{ page: pages[0] }"
+                [queryParamsHandling]="'merge'">{{pages[0]}}</a></li>
+        </div>
+        <p *ngIf="activatePage-2>pages[0] && pages.length>6" class="text-primary">...</p>
+        <div *ngFor="let p of pages;let i=index">
+            <div *ngIf="pages.length<7">
+                <div>
+                    <li class="page-item " routerLinkActive="active" [ngClass]="{ 'active': activatePage==p }"><a class="page-link"
+                        [routerLink]="[]" [queryParams]="{ page: p }"
+                        [queryParamsHandling]="'merge'">{{p}}</a></li>
+                </div>
+            </div>
+            <div *ngIf="pages.length>6">
+                <div *ngIf="p>activatePage-3 && p<activatePage+3">
+                    <div class="">
+                        <li class="page-item" routerLinkActive="active" [ngClass]="{ 'active': activatePage==p }"><a class="page-link"
+                            [routerLink]="[]" [queryParams]="{ page: p }"
+                            [queryParamsHandling]="'merge'">{{p}}</a></li>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p *ngIf="activatePage+3<pages[pages.length-1]&& pages.length>6" class="text-primary">...</p>
+        <div *ngIf="activatePage+2<pages[pages.length-1]&& pages.length>6">
+            <li class="page-item" routerLinkActive="active"><a class="page-link"
+                [routerLink]="[]" [queryParams]="{ page: pages[pages.length-1] }"
+                [queryParamsHandling]="'merge'">{{pages[pages.length-1]}}</a></li>
+        </div>
+
+
+        <li class="page-item " [ngClass]="{ 'disabled': activatePage==pages.length}">
+            <a class="page-link" aria-label="Next"  [routerLink]="[]" [queryParams]="{ page: pages[activatePage] }"
+            [queryParamsHandling]="'merge'">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

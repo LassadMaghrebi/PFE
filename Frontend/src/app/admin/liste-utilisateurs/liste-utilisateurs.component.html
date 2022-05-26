@@ -1,0 +1,21 @@
+<table class="table table-success table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nom et Prénom</th>
+        <th scope="col">Role</th>
+        <th scope="col">Etat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of utilisateurs">
+        <th scope="row">{{u.nom}} {{u.prenom}}</th>
+        <td>{{u.role}}</td>
+        <td>
+          <mat-slide-toggle [checked]="u.etatDeCompte||false" (change)="gereCompte($event,u._id)">
+            <div *ngIf="u.etatDeCompte">Desactiver</div>
+            <div *ngIf="!u.etatDeCompte">Activer</div>
+          </mat-slide-toggle>
+        </td>
+      </tr>
+    </tbody>
+  </table>

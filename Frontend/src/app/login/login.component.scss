@@ -1,0 +1,33 @@
+.row{
+    margin: 0px;
+    background-image: url("../../assets/alvaro-1639326118.jpg");
+    background-size: 100% 100%;
+    height: 100vh;
+}
+.container{
+  margin-top: 20%;
+}
+input{
+  border: 2px solid #c7c7c7;
+  border-radius: 12px;
+}
+.col-md-4{
+    background-color: #ffffff;
+    opacity: 0.89;
+}
+.avatar{
+    margin:auto;
+    display:flex;
+}
+.center{
+    text-align: center;
+}
+button.btn-lg{
+  background-color: #ACD716; 
+  color: white; 
+  border-radius: 60px;
+}
+h6>a,h4>a{
+  color: #ACD716;
+  text-decoration: none;
+}

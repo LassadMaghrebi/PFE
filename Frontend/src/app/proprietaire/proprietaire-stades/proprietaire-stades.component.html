@@ -1,0 +1,121 @@
+<div *ngIf="loading" (click)="loading=false">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4 placeholder-glow">
+                <div style="width: 100%;height: 100%;" class="img-fluid placeholder rounded-start"></div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-3 me-3"></span>
+                        <span class="placeholder col-3"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-2 me-2"></span>
+                        <span class="placeholder col-3"></span>
+                    </p>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-2 me-2"></span>
+                        <span class="placeholder col-3"></span>
+                    </p>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-2 me-2"></span>
+                        <span class="placeholder col-1"></span>
+                    </p>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-2 me-2"></span>
+                        <span class="placeholder col-4"></span>
+                    </p>
+                    <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-2"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div  *ngIf="!loading" >
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="../../../assets/alvaro-1639326118.jpg" style="width: 100%;height: 250px;" class=" rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Name : Stade Zorgi</h5>
+                    <p class="card-text">ville : Medenine</p>
+                    <p class="card-text">Strret : rue tatawine </p>
+                    <p class="card-text">Capacite : 15 </p>
+                    <div class="card-text d-flex">Evaluation :
+                        <div class="ms-2" *ngFor="let i of [1,2,3,4,5];">
+                            <div *ngIf="i<=rating">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div *ngIf="i>rating">
+                                <i class="bi bi-star"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Modifier Stade
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Modifier Stade
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Ajoute Stade
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Stadium name</label>
+                <input type="text" class="form-control" placeholder="Name">
+              </div>
+            <div class="mb-3">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected >Open this select menu</option>
+                        <option value="1" *ngFor="let v of ville">{{v}}</option>
+                  </select>
+              </div>
+
+              <div class="mb-3">
+                <label  class="form-label">Adresse</label>
+                <input type="text" class="form-control" placeholder="Rue">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Cordonnes Gps</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control"  placeholder="10.0056,33.3655">
+                    <button class="btn " ><img src="../../assets/Location.svg" width="30px"></button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label  class="form-label">Capacite</label>
+                <input type="number" class="form-control" placeholder="Capacite">
+              </div>
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02" multiple style="visibility:hidden;">
+                <label class="input-group-text w-100" for="inputGroupFile02">
+                    Ajouter des image de votre stades en clickent ici : 
+                    <i class="bi bi-cloud-upload fs-4 ms-2 text-primary"></i></label>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

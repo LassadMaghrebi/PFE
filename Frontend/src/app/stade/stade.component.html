@@ -1,0 +1,94 @@
+<div class="row" *ngIf="stade">
+    <div class="col-md-6 m-0 p-0  text-center">
+        <!-- <div class="image pt-5 mb-2 mx-2">
+            <img src="../../assets/bernabeu.jpg" width="100%" style="max-height: 400px; max-width: 800px;" class="round" alt="...">
+        </div> -->
+        <h1 class="badge fs-3 text-wrap pt-2" style="color: white;">
+            {{stade.nom}}
+        </h1>
+        <div class="image mb-2 mx-2 ">
+            <div id="carousel4" class="carousel carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner ">
+                    <div class="carousel-item" *ngFor="let image of stade.images" [ngClass]="{ 'active': image==stade.images[0] }">
+                        <img src="http://localhost:3000/auth/image/{{image}}" class="round"style="max-height: 400px; max-width: 800px; width: 100%; " alt="">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel4" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel4" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- <h3 class="text-center" style="color: #1867d9;;">El Zorgi Stadium</h3> -->
+        <button type="button" class="btn btn-primary my-1">
+            <h1 class="badge fs-3 text-wrap" style="color: white;">
+                Reserver
+            </h1>
+        </button>
+        <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <h1 class="badge fs-3 text-wrap" style="color: white;">
+                Reserver
+            </h1>
+        </button>
+    </div>
+    <div class="bleu"></div>
+    <div class="col-md-6 m-0 p-0">
+        <div class="pt-5 mb-2 p-2 text-center" style="width: 100%; height: 100%;">
+            <h5 class="text-center" style="color:   #ffffff;">
+                <i class="bi bi-geo-alt-fill"></i>
+                {{ stade.adresse.ville}},{{stade.adresse.rue}}
+            </h5>
+            <!-- <img src="https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg"
+                width="100%" height="100%" style="max-height: 300px; max-width: 600px;" class="round" alt="..."> -->
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="100%" height="300" class="round" id="gmap_canvas" 
+                        src="https://maps.google.com/maps?q=33.362876,%2010.467702&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                        </iframe>
+                        <a href="https://123movies-to.org"></a><br>
+                        <style>.mapouter{position:relative;text-align:right;height:100%;width:100%;}</style>
+                        <style>.gmap_canvas {overflow:hidden;background:none!important;height:70%;width:100%;}</style>
+                    </div>
+                </div>
+
+            <div class="fs-4" style="font-weight: 700;">
+                For More Information you can call<br>
+                <p class="fs-5" style="font-weight: 400;"><i class="bi bi-telephone-fill"></i> +216 23 268 571</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Stadium name</label>
+                <input type="text" class="form-control" placeholder="Name">
+              </div>
+              <div class="mb-3">
+                <label  class="form-label">Adresse</label>
+                <input type="datetime-local" id="meeting-time"
+                value="2018-06-12T19:30"
+                min="2018-06-07T00:00" max="2018-06-14T00:00" class="form-control">
+              </div>
+              
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
