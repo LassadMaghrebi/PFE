@@ -100,8 +100,8 @@
                     <div class="mb-3">
                         <label class="form-label">Cordonnes Gps</label>
                         <div class="d-flex">
-                            <input type="text" formControlName="coordonnes" class="form-control" placeholder="10.0056,33.3655">
-                            <button class="btn "><img src="../../assets/Location.svg" width="30px"></button>
+                            <input type="text" formControlName="coordonnes" [(ngModel)]="position" class="form-control" placeholder="10.0056,33.3655">
+                            <button class="btn " (click)="getLocation()"><img src="../../assets/Location.svg" width="30px"></button>
                         </div>
                     </div>
                     <div class="mb-3">

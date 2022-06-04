@@ -18,7 +18,6 @@ export class ProprietaireStadesComponent implements OnInit {
   ville=["Ariana", "Béja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba",
   "Kairouan", "Kasserine", "Kebili", "Manouba", "Kef", "Mahdia", "Médenine", "Monastir",
   "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"]
-  
   ngOnInit(): void {
     this.StadeForm = this.formbuilder.group({
       nom: ['', [Validators.required, Validators.email]],
@@ -36,6 +35,21 @@ export class ProprietaireStadesComponent implements OnInit {
     })
 
   }
+position=""
+  getLocation(){
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(res=>{
+      // console.log(res.coords.latitude+","+res.coords.longitude);
+      this.position= res.coords.latitude+","+res.coords.longitude   
+      })
+      
+    } else {
+      console.log('Geolocation is not supported for this Browser/OS.');
+    }
+  }
+
+
   change(e:any){
     console.log(e.target.files);
     this.images=e.target.files
