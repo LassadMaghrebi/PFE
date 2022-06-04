@@ -40,7 +40,6 @@ position=""
     
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(res=>{
-      // console.log(res.coords.latitude+","+res.coords.longitude);
       this.position= res.coords.latitude+","+res.coords.longitude   
       })
       
