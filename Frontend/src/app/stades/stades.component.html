@@ -1,4 +1,4 @@
-<div *ngIf="loading">
+<div *ngIf="loading" style="position: relative;min-height: 100%;">
 
     <div style="margin: 0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
       <div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;  margin: 0;position: absolute;">
@@ -10,7 +10,7 @@
         <h1>Welcome </h1>
     </div>
     <div class="input-group">
-        <input class="search" type="search" (input)="focus($event)"
+        <input class="search" type="search" (input)="input($event)"
             placeholder="Search for stadiums and availabilities..">
         <span class="input-group-text"><i class="bi bi-search"></i></span>
     </div>
@@ -46,13 +46,13 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
-                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ capacite: 12,page:1 }"[queryParamsHandling]="'merge'">
-                        12 joueurs
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ capacite: 16,page:1 }"[queryParamsHandling]="'merge'">
+                        16 joueurs
                     </a>
                 </li>
                 <li>
                     <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{ capacite: 14,page:1 }">
-                        14 joueurs
+                        18 joueurs
                     </a>
                 </li>
             </ul>
@@ -130,11 +130,6 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
-                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ orderBy:'date',page:1 }"[queryParamsHandling]="'merge'">
-                        Date d'ouverture
-                    </a>
-                </li>
-                <li>
                     <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ orderBy:'capacite',page:1 }"[queryParamsHandling]="'merge'">
                         Capacite
                     </a>
@@ -151,9 +146,8 @@
         <div class="col-md-6 col-lg-4" *ngFor="let s of stadesListe">
             <div class="card" [routerLink]="['/stade/'+s._id]">
                 <img src="http://localhost:3000/auth/image/{{s.images[0]}}" alt="" >
-                <h2 class="text-truncate fs-2">{{s.nom}}</h2>
-                <p class="text-truncate"><i class="bi bi-geo-alt"></i>{{s.adresse.ville}}{{s.adresse.rue}}</p>
-                <p ><i class="bi bi-telephone"></i> +216 29 015 535</p>
+                <h2 class="text-truncate fs-2 mt-2">{{s.nom}}</h2>
+                <p class="text-truncate"><i class="bi bi-geo-alt"></i>{{s.adresse.ville}} {{s.adresse.rue}}</p>
             </div>
         </div>
     </div>
@@ -190,7 +184,7 @@
                 [routerLink]="[]" [queryParams]="{ page: pages[0] }"
                 [queryParamsHandling]="'merge'">{{pages[0]}}</a></li>
         </div>
-        <p *ngIf="activatePage-2>pages[0] && pages.length>6" class="text-primary">...</p>
+        <p *ngIf="activatePage-3>pages[0] && pages.length>6" class="text-primary">...</p>
         <div *ngFor="let p of pages;let i=index">
             <div *ngIf="pages.length<7">
                 <div>
@@ -226,3 +220,4 @@
         </li>
     </ul>
 </nav>
+<app-footer></app-footer>

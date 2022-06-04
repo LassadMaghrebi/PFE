@@ -18,8 +18,8 @@ const UserSchema=mongose.Schema({
     },
     role:{
         type:String,
-        enum: [ "PLAYER", "proprietaire"],
-        default:"PLAYER"
+        enum: [ "joueur", "proprietaire"],
+        default:"joueur"
     },
     etatDeCompte: {
         type: Boolean,

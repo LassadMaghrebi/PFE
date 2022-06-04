@@ -6,6 +6,7 @@ import { ListeStadesComponent } from './admin/liste-stades/liste-stades.componen
 import { ListeUtilisateursComponent } from './admin/liste-utilisateurs/liste-utilisateurs.component';
 import { AppComponent } from './app.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProprietaireRegisterComponent } from './proprietaire-register/proprietaire-register.component';

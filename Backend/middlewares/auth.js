@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 module.exports = async function (req, res, next) {
   try {
-    
     const token=req.headers.authorization.replace('Bearer ',"")
     const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
     req.body.user = payload.id;
@@ -13,6 +12,6 @@ module.exports = async function (req, res, next) {
     if (userInformations.DeconnectionDate > payload.iat * 1000) return res.status(401).send("Votre session a été expiré veuillez vous reconnecter" );
     else next();
   } catch (e) {
-    return res.status(500).send("JSON Web Token invalide ou expiré !");
+    return res.status(500).send("Erreur d'identification veuillez reconnecter !");
   }
 };

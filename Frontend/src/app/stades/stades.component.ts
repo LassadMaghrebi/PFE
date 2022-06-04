@@ -20,6 +20,7 @@ export class StadesComponent implements OnInit {
   "Kairouan", "Kasserine", "Kebili", "Manouba", "Kef", "Mahdia", "Médenine", "Monastir",
   "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"]
   pages:Array<Number>=[]
+  // pages:Array<Number>=[1,2,3,4,5,6,7,8,9,10,11,12]
   orderBy=""
   filter={}
   constructor(private route:ActivatedRoute,private data:DataService,private http:HttpClient) {
@@ -53,7 +54,7 @@ export class StadesComponent implements OnInit {
   ngOnInit(): void {
     //this.getAllStadiums()
   }
-focus(e:any){
+  input(e:any){
   this.rechercheListe=[]
   this.http.post('http://localhost:3000/stade/name',{nom:e.target.value}).subscribe((resp:any)=>{
     this.visible=true

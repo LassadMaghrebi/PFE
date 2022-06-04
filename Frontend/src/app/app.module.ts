@@ -29,6 +29,7 @@ import { ProprietaireStadesComponent } from './proprietaire/proprietaire-stades/
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { NgChartsModule } from 'ng2-charts';
 import { ProprietaireRegisterComponent } from './proprietaire-register/proprietaire-register.component';
+import { ReservationsComponent } from './reservations/reservations.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { ProprietaireRegisterComponent } from './proprietaire-register/proprieta
     StadesMapComponent,
     ProprietaireStadesComponent,
     ProprietaireRegisterComponent,
+    ReservationsComponent,
     
   ],
   imports: [

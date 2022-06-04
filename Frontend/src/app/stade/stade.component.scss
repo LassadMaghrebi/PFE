@@ -19,3 +19,37 @@
     z-index: 1;
     opacity: 0.85;
 }
+
+// .images{
+//     max-height: 400px; max-width: 800px; width: 100%;
+// }
+@media (min-width: 1300px) {
+    .images{
+        height: 400px;  width: 100%;
+    }
+    .map{
+        height: 350px; width: 100%;
+    }
+}
+@media (max-width: 1300px) {
+    .images{
+        height: 350px; width: 100%;
+    }
+}
+@media (max-width: 992px) {
+    .images{
+        height: 250px;width: 100%;
+    }
+    .map{
+        height: 200px; width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+}
+@media (max-width: 576px) {
+    .images{
+        height: 200px;  width: 100%;
+    }
+}

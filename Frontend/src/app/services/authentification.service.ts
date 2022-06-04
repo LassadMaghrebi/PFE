@@ -12,6 +12,10 @@ export class AuthentificationService {
         this.loggedIn.next(true);
     }
   }
+  logout(){
+    this.loggedIn.next(false)
+    sessionStorage.clear()
+  }
   headers =new HttpHeaders({'Authorization': ''+sessionStorage.getItem('token')})
   login(f:any){
     return this.http.post("http://localhost:3000/auth/login",f)

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as mapboxgl from 'mapbox-gl';
 @Component({
   selector: 'app-stades-map',
@@ -11,17 +12,18 @@ export class StadesMapComponent implements OnInit {
   
   lat = 33.34;
   lng = 10.49;
-  constructor() {
+  stadeId=""
+  constructor(private route:ActivatedRoute) {
+    this.route.paramMap.subscribe(params => {
+      this.stadeId=params.get('id')||""
+    })
+
 mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',()=>{});
-  // if (navigator.geolocation) {
-  //   console.log('Geolocation is supported!');
-  // } else {
-  //   console.log('Geolocation is not supported for this Browser/OS.');
-  // }
 }
   ngOnInit(): void {
     this.initializeMap()
     this.addMarker(10.491022,33.343434)
+    this.getStades()
   }
 
   addMarker(lng:number,lat:number){
@@ -49,5 +51,11 @@ mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl
       trackUserLocation: true,
       showUserHeading: true})
     )   
+  }
+
+  getStades(){
+    if(this.stadeId){
+      console.log(this.stadeId);
+    }
   }
 }

@@ -8,7 +8,7 @@ const ReservationSchema = mongose.Schema({
         type: String,
         required: true,
     },
-    reservationDate: {
+    date: {
         type: Date,
     },
     etat: {
@@ -16,8 +16,8 @@ const ReservationSchema = mongose.Schema({
         default: false
     },
     montant: {
-        type: Boolean,
-        default: false
+        type: Number,
+        default: 60
     },
 })
 module.exports = mongose.model('Reservation', ReservationSchema)

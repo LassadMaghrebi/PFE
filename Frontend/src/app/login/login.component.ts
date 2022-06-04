@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthentificationService } from '../services/authentification.service';
-
+import jwt_decode from "jwt-decode";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,12 +37,12 @@ export class LoginComponent implements OnInit {
       this.erreur = ""
       this.auth.login(this.playerLoginForm.value).subscribe((resp: any) => {
         sessionStorage.setItem("token", resp.token)
-        let user:any=atob(resp.token.split('.')[1])
+        let user:any=jwt_decode(resp.token)
         this.showSuccess(user.prenom)
         this.auth.loggedIn.next(true)
-        if(user.role=="proprietaire")this.router.navigateByUrl('/proprietaire')
+        if(user.role=="proprietaire") this.router.navigateByUrl('/proprietaire')
         if(user.role=="admin")this.router.navigateByUrl('/admin')
-        else this.router.navigateByUrl('/stades')
+        if(user.role=="joueur") this.router.navigateByUrl('/stades')
       }, err => {
         this.showError(err.error)
         this.erreur = err.error

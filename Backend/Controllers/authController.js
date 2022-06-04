@@ -10,8 +10,8 @@ exports.login = async (req, res) => {
     let user = await User.findOne({ email });
     if (!user) return res.status(404).json("Utilisateur n'existe pas");
     if (bcrypt.compareSync(password, user.password)) {
-      if (user.confirmed === false) return res.status(400).json( "Veuillez  Confirmer votre email" );
-      if (user.accountStatus === false) return res.status(400).json("votre compte a éte bloqué !");
+      if (user.emailConfirmer === false) return res.status(400).json( "Veuillez  Confirmer votre email" );
+      if (user.etatDeCompte === false) return res.status(400).json("votre compte a éte bloqué !");
       const payload = {
           id: user.id,
           prenom: user.prenom,
@@ -202,7 +202,7 @@ exports.getUserData =(req, res) => {
 
 exports.getAllUsers =(req, res) => {
   try {
-    User.find({role:{$in:["PLAYER","proprietaire"]}}).then((result)=> {
+    User.find({role:{$in:["joueur","proprietaire"]}}).then((result)=> {
       if (result)return res.status(200).json(result)
       if (!result)return res.status(200).json("Aucun utilisateur trouvé !")
     })
@@ -214,6 +214,16 @@ exports.getAllUsers =(req, res) => {
 exports.getUserById =(req, res) => {
   try {
     User.findById(req.params.id).then((result)=> {
+      if (result)return res.status(200).json(result)
+      if (!result)return res.status(200).json("utilisateur n'existe pas")
+    })
+  } catch (e) {
+    res.status(500).json("autre erreur !");
+  }
+}
+exports.getUserName =(req, res) => {
+  try {
+    User.findById(req.params.id,{nom:1,prenom:1}).then((result)=> {
       if (result)return res.status(200).json(result)
       if (!result)return res.status(200).json("utilisateur n'existe pas")
     })

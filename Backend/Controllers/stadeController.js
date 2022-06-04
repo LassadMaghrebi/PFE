@@ -1,10 +1,37 @@
 const Stade = require("../Models/Stade");
-exports.ajoutStade = async (req, res) => {
-    console.log(req.body);
+const multer=require('multer')
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+    //   console.log(file);
+      cb(null, './images')
+    },
+    filename: function (req, file, cb) {
+      cb(null,file.originalname.replace(' ', '_'));
+    }
+  })
+const upload = multer({ storage: storage }).array('image')
+exports.ajoutStade = (req, res) => {
+    user=req.body.user
+    images=[]
+    upload(req, res, (err) => {
+        // console.log(req.files);
+        req.files.forEach(element => {
+            images.push(element.filename)
+        });
+        let coordonnes=req.body.coordonnes.split(",")
+        req.body.coordonnes={long:coordonnes[0],lat:coordonnes[1]}
+        let stade={
+            proprietaire:user,
+            nom:req.body.nom,
+            coordonnes:{long:coordonnes[0],lat:coordonnes[1]},
+            adresse:{ville:req.body.ville,rue:req.body.rue},
+            terrains:req.body.terrains,
+            capacite:req.body.capacite,
+            images:images
+        }
     try {
-        req.body.proprietaire=req.body.user
-        console.log(req.body);
-        Stade(req.body).save().then(()=> {
+        console.log(stade);
+        Stade(stade).save().then(()=> {
             return res.status(200).json("Votre demande a ete bien reçu ");
         }).catch((error) => {
             return res.status(400).json("Erreur d'ajout !")
@@ -13,6 +40,7 @@ exports.ajoutStade = async (req, res) => {
         console.log(e);
         res.status(500).send(e.error || "autre erreur");
     }
+})
 }
 exports.getAllStades =async (req, res) => {
     if(req.query.page==null||isNaN(req.query.page)||req.query.page==1) req.query.page=0
@@ -51,9 +79,9 @@ exports.getStadeById = (req, res) => {
     }
 }
 exports.getStadesByNom = (req, res) => {
-    let name = req.body.name
+    let nom = req.body.nom
     try {
-        Stadium.find({ nom: { $regex: nom } }, (err, result)=> {
+        Stade.find({ nom: { $regex: nom } }, (err, result)=> {
             if (result) return res.status(200).json(result)
             if (err) return res.status(404).json({ message: "Aucun stade trouvé" })
         }).limit(10)
@@ -62,9 +90,9 @@ exports.getStadesByNom = (req, res) => {
     }
 }
 exports.getStadesByProprietaire = (req, res) => {
-    
     try {
-        Stadium.find({ proprietaire:req.body.user }, (err, result)=> {
+        console.log(req.body.user);
+        Stade.find({ proprietaire:req.body.user }, (err, result)=> {
             if (result) return res.status(200).json(result)
             if (err) return res.status(404).json({ message: "Aucun stade trouvé" })
         }).limit(10)
