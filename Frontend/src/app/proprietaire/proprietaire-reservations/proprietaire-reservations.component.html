@@ -50,7 +50,7 @@
   <div class="col-12 mt-3">
 
 
-<div class="" style="    height: 250px; 
+<!-- <div class="" style="    height: 250px; 
 overflow-y: scroll;">
     <table class="table table-striped table-hover">
       <thead >
@@ -75,7 +75,7 @@ overflow-y: scroll;">
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
     <!-- <ul class="list-group contenu">
       <li class="list-group-item" *ngFor="let r of reservation; let i = index" >Reservation N°{{i}}
         <button type="button" class="btn btn-primary btn-sm ms-1" style="color: white; padding: 0px;float: right;">
@@ -96,10 +96,43 @@ overflow-y: scroll;">
         </button>
       </li>
     </ul> -->
-    <div class="w-100">
-      <button type="button" class="btn btn-success w-50">Add Staduim</button>
-      <button type="button" class="btn btn-danger w-50" style="float: right;padding-inline: 5px;">Delete
-        Staduim</button>
+    <div class="w-100 text-center">
+      <button type="button" class="btn btn-success w-25 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajoute Reservation</button>
     </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" style="position: absolute; left:auto; top:50%;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header d-flex  my-0">
+              <h4 class="modal-title ms-auto fs-4 mb-0" id="exampleModalLabel">Reserver</h4>
+              <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form class="container" [formGroup]="ReservationForm" >
+                <div class="mb-3">
+                  <select class="form-select" formControlName="stadeId"> Stade
+                    <option>Stade</option>
+                      <option *ngFor="let s of stades" [value]="s._id" >{{s.nom}}</option>
+                  </select>
+              </div>
+                  <div class="mb-3">
+                      <label class="form-label">Date</label>
+                      <input type="datetime-local" formControlName="date" 
+                      [ngClass]="{ 'is-invalid':submitted&& ReservationForm.controls['date'].errors }"class="form-control">
+                       <div *ngIf="submitted && ReservationForm.controls['date'].errors" class="invalid-feedback">
+                          <div *ngIf="ReservationForm.controls['date'].errors['required']">Vouz devez entrer la date de votre reservation</div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary" (click)="reserver()" data-bs-dismiss="modal">Enregistrer</button>
+          </div>
+      </div>
   </div>
 </div>

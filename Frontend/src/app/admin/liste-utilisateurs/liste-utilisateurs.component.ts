@@ -20,15 +20,26 @@ export class ListeUtilisateursComponent implements OnInit {
       this.utilisateurs=res
     })
   }
-  gereCompte(e:any,u:string){
-
-    if (e.checked){
-      this.auth.activerCompte(u).subscribe(res=>{
-        console.log(res);
+  // activerCompte(id:string){
+  //   this.auth.activerCompte(id).subscribe(res=>{
+  //     console.log(res);
+  //     this.getAllUsers()
+  //   })
+  // }
+  // desactiverCompte(id:string){
+  //   this.auth.desactiverCompte(id).subscribe(res=>{
+  //     console.log(res);
+  //     this.getAllUsers()
+  //   })
+  // }
+  change(event:any,id:string){
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.auth.activerCompte(id).subscribe(res=>{
         this.getAllUsers()
       })
     }else{
-      this.auth.desactiverCompte(u).subscribe(res=>{
+      this.auth.desactiverCompte(id).subscribe(res=>{
         console.log(res);
         this.getAllUsers()
       })

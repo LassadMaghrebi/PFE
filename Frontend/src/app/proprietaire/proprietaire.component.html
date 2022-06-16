@@ -27,9 +27,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link link-light text-center w-100" [routerLink]="['stadiums']" routerLinkActive="active">
+                <a class="nav-link link-light text-center w-100" [routerLink]="['profile']" routerLinkActive="active">
                     <i class="bi bi-gear"></i>
-                    Profile
+                    Profil
                 </a>
             </li>
         </ul>
@@ -63,9 +63,9 @@
                 </a>
             </li>
             <li class="nav-item px-1">
-                <a class="nav-link link-light " href="#">
+                <a class="nav-link link-light " [routerLink]="['profile']" routerLinkActive="active">
                     <i class="bi bi-gear"></i>
-                    Profile
+                    Profil
                 </a>
             </li>
         </ul>
@@ -74,3 +74,4 @@
         <router-outlet></router-outlet>
     </div>
 </div>
+<app-footer></app-footer>

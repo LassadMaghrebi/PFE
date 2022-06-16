@@ -34,16 +34,12 @@ const StadeSchema = mongose.Schema({
     },
     etat: {
         type: Boolean,
-        default: false
+        default: true
     },
     evaluation:Number,
-    terrains: {
-        type: Number,
-        default: 1
-    },
     capacite: {
         type: Number,
-        default: 12
+        default: 16
     },
 })
 module.exports = mongose.model('Stade', StadeSchema)

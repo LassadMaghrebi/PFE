@@ -41,7 +41,7 @@ export class StadeComponent implements OnInit {
     this.ReservationForm = this.formbuilder.group({
       stadeId: [this.stadeId],
       date: ['', [Validators.required,]],
-      equipe: ['', [Validators.required]],
+      equipe: [16, [Validators.required]],
     })
     // console.log(this.date.toISOString().slice(0,16));
   }
@@ -67,6 +67,7 @@ export class StadeComponent implements OnInit {
       }
       )
     } else {
+      this.showError("Veillez remplir tous les champs")
       this.submitted = true
     }
   }

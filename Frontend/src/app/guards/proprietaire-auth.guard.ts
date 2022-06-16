@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class ProprietaireAuthGuard implements CanActivate {
   constructor( public router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -13,10 +13,15 @@ export class AuthGuard implements CanActivate {
       if (!sessionStorage.getItem('token')) {
         this.router.navigateByUrl("/login")
         return false;
-      } 
-      else{
-        return true
       }
+      let token=sessionStorage.getItem('token')||""
+      let user:any=jwt_decode(token)
+      if(user.role=="proprietaire")  return true
+      else{
+        this.router.navigateByUrl("/login")
+      return false
+      }
+
   }
   
 }

@@ -26,14 +26,14 @@
                 <a class="nav-link link-light text-center w-100" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample" [routerLink]="['utilisateurs']" routerLinkActive="active">
                     <i class="bi bi-view-list"></i>
-                    Utilisateur
+                    Utilisateurs
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link link-light text-center w-100" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample" [routerLink]="['profile']" routerLinkActive="active">
                     <i class="bi bi-gear"></i>
-                    Profile
+                    Profil
                 </a>
             </li>
         </ul>
@@ -62,19 +62,20 @@
             <li class="nav-item">
                 <a class="nav-link link-light  px-0" [routerLink]="['utilisateurs']" routerLinkActive="active">
                     <i class="bi bi-view-list"></i>
-                    Utilisateur
+                    Utilisateurs
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link link-light  px-0" href="#">
+                <a class="nav-link link-light  px-0" [routerLink]="['demandes']" routerLinkActive="active">
                     <i class="bi bi-ui-checks"></i>
-                    Demandes d'ajout d'un stade
+                    Demandes
+                    <!-- Demandes d'ajout d'un stade -->
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link link-light px-0" [routerLink]="['profile']" routerLinkActive="active">
                     <i class="bi bi-gear"></i>
-                    Profile
+                    Profil
                 </a>
             </li>
         </ul>

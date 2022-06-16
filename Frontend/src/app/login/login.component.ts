@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
         let user:any=jwt_decode(resp.token)
         this.showSuccess(user.prenom)
         this.auth.loggedIn.next(true)
-        if(user.role=="proprietaire") this.router.navigateByUrl('/proprietaire')
-        if(user.role=="admin")this.router.navigateByUrl('/admin')
-        if(user.role=="joueur") this.router.navigateByUrl('/stades')
+        if(user.role=="proprietaire") {this.auth.role.next("proprietaire"); this.router.navigateByUrl('/proprietaire')}
+        if(user.role=="admin"){this.router.navigateByUrl('/admin');this.auth.role.next("admin")}
+        if(user.role=="joueur") {this.router.navigateByUrl('/stades');this.auth.role.next("joueur")}
       }, err => {
         this.showError(err.error)
         this.erreur = err.error

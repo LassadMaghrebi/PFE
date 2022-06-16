@@ -12,8 +12,12 @@ export class NavbarComponent implements OnInit {
     auth.loggedIn.subscribe(res=>{
       this.loggedin=res
     })
+    auth.role.subscribe(res=>{
+      this.role=res
+    })
   }
   loggedin=false
+  role=""
   ngOnInit(): void {
   }
   logout(){

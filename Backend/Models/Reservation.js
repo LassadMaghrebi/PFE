@@ -11,10 +11,6 @@ const ReservationSchema = mongose.Schema({
     date: {
         type: Date,
     },
-    etat: {
-        type: Boolean,
-        default: false
-    },
     montant: {
         type: Number,
         default: 60

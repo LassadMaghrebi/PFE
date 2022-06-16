@@ -30,10 +30,16 @@
     .map{
         height: 350px; width: 100%;
     }
+    .voirMap{
+        bottom: 200px;
+    }
 }
 @media (max-width: 1300px) {
     .images{
         height: 350px; width: 100%;
+    }
+    .voirMap{
+        bottom: 175px;
     }
 }
 @media (max-width: 992px) {
@@ -43,13 +49,24 @@
     .map{
         height: 200px; width: 100%;
     }
+    .voirMap{
+        bottom: 150px;
+    }
 }
 
 @media (max-width: 768px) {
-
+    .images{
+        height: 300px;  width: 100%;
+    }
+    .voirMap{
+        bottom: 200px;
+    }
 }
 @media (max-width: 576px) {
     .images{
         height: 200px;  width: 100%;
+    }
+    .voirMap{
+        bottom: 38vw;
     }
 }

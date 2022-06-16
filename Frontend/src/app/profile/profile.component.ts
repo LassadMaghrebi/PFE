@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   changeForm!: FormGroup;
   image:any
   user:any
+  submitted=false
   ngOnInit(): void {
     this.changeForm = this.formbuilder.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -41,18 +42,25 @@ export class ProfileComponent implements OnInit {
     this.image=e.target.files[0]
   }
   save(){
-    this.showSuccess("votre image a etait changer")
     const formData = new FormData();
     formData.append('image',this.image);
-    this.http.post("http://localhost:3000/auth/image",formData).subscribe(res=>{
-      
-    this.user.image=res
-  })
+    this.auth.changeImage(formData).subscribe(res=>{
+      this.showSuccess("votre image a etait changer")
+      this.user.image=res
+    })
   }
   updatePassword(){
-    this.showSuccess("votre mot de passe a etait changer")
-    this.changeForm.value.id=sessionStorage.getItem("id")
-    this.http.post("http://localhost:3000/auth/password",this.changeForm.value).subscribe(res=>{
+    this.submitted=true
+    if (this.changeForm.valid) {
+      
+    
+    this.auth.changePassword(this.changeForm.value).subscribe(res=>{
+      this.submitted=false
+      this.changeForm.reset()
+      this.showSuccess("votre mot de passe a etait changer")
+    },err=>{
+      this.showError(err.error)
     })
+  }
   }
 }

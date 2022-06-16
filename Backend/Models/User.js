@@ -12,6 +12,7 @@ const UserSchema=mongose.Schema({
     },
     phone:String,
     age:Number,
+    matricule:String,
     password:{
         type: String,
         required: true

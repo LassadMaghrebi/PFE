@@ -23,7 +23,7 @@ export class ProprietaireRegisterComponent implements OnInit {
       prenom: ['', Validators.required],
       nom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      telephone: ['', Validators.required],
+      phone: ['', Validators.required],
       matricule: ['', Validators.required],
       age: ['', Validators.required],
       role: ['proprietaire'],

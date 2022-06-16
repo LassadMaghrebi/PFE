@@ -7,11 +7,11 @@
   </div>
 <div class="page" *ngIf="!loading">
     <div class="blue" (click)="visible=false">
-        <h1>Welcome </h1>
+        <h1>Bienvenue </h1>
     </div>
     <div class="input-group">
         <input class="search" type="search" (input)="input($event)"
-            placeholder="Search for stadiums and availabilities..">
+            placeholder="Chercher un stade..">
         <span class="input-group-text"><i class="bi bi-search"></i></span>
     </div>
     <div class="list">
@@ -42,23 +42,28 @@
         </div>
         <div class="dropdown" style="width: 100%;">
             <button class="btn dropdown-toggle" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
-                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">capacite
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Capacite
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ capacite:'',page:1 }"[queryParamsHandling]="'merge'">
+                        all
+                    </a>
+                </li>
                 <li>
                     <a class="dropdown-item" [routerLink]="[]" [queryParams]="{ capacite: 16,page:1 }"[queryParamsHandling]="'merge'">
                         16 joueurs
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{ capacite: 14,page:1 }">
+                    <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{ capacite: 18,page:1 }">
                         18 joueurs
                     </a>
                 </li>
             </ul>
         </div>
         <div class="dropdown" style="width: 100%;">
-            <button class="btn dropdown-toggle" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
+            <button class="btn dropdown-toggle disabled" style="background-color: rgba(255, 255, 255, 0.4);" type="button"
                 id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Evaluation
             </button>
             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
@@ -135,8 +140,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{  orderBy:'capacite',page:1 }">
-                        Evaluation
+                    <a class="dropdown-item" [routerLink]="[]" [queryParamsHandling]="'merge'"[queryParams]="{  orderBy:'nom',page:1 }">
+                        nom
                     </a>
                 </li>
             </ul>
@@ -157,14 +162,25 @@
             <i class="bi bi-chat-left-text"></i>
         </button>
         <ul class="dropdown-menu">
-            <form class="form container">
-                <label>Summary</label><br>
-                <input class="form-control" type="text"><br>
-                <label>Description</label><br>
-                <textarea class="form-control" rows="3" type="text"></textarea>
-                <label>Your contact e-mail</label><br>
-                <input class="form-control" type="email"><br>
-                <button type="submit" class="btn send">send</button>
+            <h1 class="text-center">Contact</h1>
+            <form class="form container"  [formGroup]="reclamationForm" >
+                <label>Sujet</label><br>
+                <input class="form-control" type="text" [ngClass]="{ 'is-invalid': submitted && reclamationForm.controls['Sujet'].errors }" formControlName="Sujet"><br>
+                <div *ngIf="submitted && reclamationForm.controls['Sujet'].errors" class="invalid-feedback">
+                    <div *ngIf="reclamationForm.controls['Sujet'].errors['required']">Sujet obligatoire</div>
+                </div>
+                <label>Message</label><br>
+                <textarea class="form-control" rows="3" type="text" [ngClass]="{ 'is-invalid': submitted && reclamationForm.controls['description'].errors }" formControlName="description"></textarea>
+                <div *ngIf="submitted && reclamationForm.controls['description'].errors" class="invalid-feedback">
+                    <div *ngIf="reclamationForm.controls['description'].errors['required']">description obligatoire</div>
+                </div>
+                <label>Votre email</label><br>
+                <input class="form-control" type="email" [ngClass]="{ 'is-invalid': submitted && reclamationForm.controls['email'].errors }" formControlName="email" ><br>
+                <div *ngIf="submitted && reclamationForm.controls['email'].errors" class="invalid-feedback">
+                    <div *ngIf="reclamationForm.controls['email'].errors['required']">Email Adress is required</div>
+                    <div *ngIf="reclamationForm.controls['email'].errors && !reclamationForm.controls['email'].errors['required']">Please enter a valide e-mail adress</div>
+                </div>
+                <button type="submit" class="btn send" (click)="submit()">Envoyer</button>
             </form>
         </ul>
     </div>

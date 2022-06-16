@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <form class="container " [formGroup]="ProprietaireForm"  (ngSubmit)="submit()">
             <img src="../../assets/AvatarOwner.png" width=150px; class="avatar">
-            <h1 class="text">WELCOME</h1>
+            <h1 class="text">Bienvenue</h1>
             <div class="c">
                 <div class="mb-3 " >
                     <input type="text"  placeholder="Nom" class="form-control form-control-lg" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['nom'].errors}">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="mb-3 " >
-                    <input type="email"  placeholder="email" (blur)="findEmail()" class="form-control form-control-lg" formControlName="email" name="email"  [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['email'].errors }">
+                    <input type="email"  placeholder="Email" (blur)="findEmail()" class="form-control form-control-lg" formControlName="email" name="email"  [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['email'].errors }">
                     <div *ngIf="submitted && ProprietaireForm.controls['email'].errors" class="invalid-feedback">
                         <div *ngIf="ProprietaireForm.controls['email'].errors['required']">Email Adress is required</div>
                         <div *ngIf="ProprietaireForm.controls['email'].errors && !ProprietaireForm.controls['email'].errors['required']">Please enter a valide e-mail adress</div>
@@ -25,9 +25,9 @@
                     <div class="form-text text-danger" >{{emailError}}</div>
                 </div>
                 <div class="mb-3 " >
-                    <input type="text"  placeholder="Telephone" class="form-control form-control-lg" formControlName="telephone" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['telephone'].errors }">
-                    <div *ngIf="submitted && ProprietaireForm.controls['telephone'].errors" class="invalid-feedback">
-                        <div *ngIf="ProprietaireForm.controls['telephone'].errors">Veillez entrer votre numero du telephone</div>
+                    <input type="text"  placeholder="Telephone" class="form-control form-control-lg" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['phone'].errors }">
+                    <div *ngIf="submitted && ProprietaireForm.controls['phone'].errors" class="invalid-feedback">
+                        <div *ngIf="ProprietaireForm.controls['phone'].errors">Veillez entrer votre numero du telephone</div>
                     </div>
                 </div>
                 <div class="mb-3 " >
@@ -39,28 +39,28 @@
                 <div class="mb-3 " >
                     <input type="number"  placeholder="Age" class="form-control form-control-lg" formControlName="age" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['age'].errors }">
                     <div *ngIf="submitted && ProprietaireForm.controls['age'].errors" class="invalid-feedback">
-                        <div *ngIf="ProprietaireForm.controls['age'].errors">Please enter your Last Name</div>
+                        <div *ngIf="ProprietaireForm.controls['age'].errors">Please enter your age</div>
                     </div>
                 </div>
                 <div class="mb-3 ">
-                    <input type="password" placeholder="Password" class="form-control form-control-lg" formControlName="password" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['password'].errors }">
+                    <input type="password" placeholder="Mot de passe" class="form-control form-control-lg" formControlName="password" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['password'].errors }">
                     <div *ngIf="submitted && ProprietaireForm.controls['password'].errors" class="invalid-feedback">
                         <div *ngIf="ProprietaireForm.controls['password'].errors['required']">Password is required</div>
                         <div *ngIf="ProprietaireForm.controls['password'].errors['minlength']">Password must be at least 6 characters</div>
                     </div>
                 </div>
                 <div class="mb-3 ">
-                    <input type="password" placeholder="Confirm Password" class="form-control form-control-lg" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['confirmPassword'].errors }">
+                    <input type="password" placeholder="Confirmer mot de passe" class="form-control form-control-lg" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && ProprietaireForm.controls['confirmPassword'].errors }">
                     <div class="form-text text-danger text-center">{{passwordError}}</div>
                 </div>
             </div>
             <div class="form-text text-danger text-center">{{error}}</div>
             <div class="mb-3 d-grid gap-2 mt-5">
-                <button class="btn btn-lg"  type="submit"><strong>Register</strong></button>
+                <button class="btn btn-lg"  type="submit"><strong>Enregistrer</strong></button>
             </div>
         </form>
-        <h4 class="text fs-4 mb-3">Already Have an account ? <a [routerLink]="['/login']">Login</a></h4> 
-        <h6 class="text fs-6">Are you a Player ? <a [routerLink]="['/register']">Click Here</a></h6> 
+        <h4 class="text fs-4 mb-3">Vous avez déjà un compte? <a [routerLink]="['/login']">Se connecter</a></h4> 
+        <h6 class="text fs-6">Vous êtes un joueur? <a [routerLink]="['/register']">Cliquer ici</a></h6> 
     </div>
 </div>
 <!-- <div class="mb-3 d-grid gap-2 mt-5">

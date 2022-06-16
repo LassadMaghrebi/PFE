@@ -53,23 +53,31 @@
         <img *ngIf="user" src="http://localhost:3000/auth/image/{{user.image}}" class="card-img-top" alt="...">
         <div class="text-center mt-2">
             <label class="upload btn btn-light" for="couverture" >Changer Votre Photo<i class="bi bi-cloud-arrow-up ms-1 fs-6"></i></label>
-            <input class="fileinput" type="file" id="couverture" name="couverture" accept="image/png, image/jpeg">
+            <input class="fileinput" type="file" id="couverture" (change)="change($event)" name="couverture" accept="image/png, image/jpeg">
         </div>
         <div class="card-body text-center">
-            <button class="btn btn-primary" (click)="save()">Submit</button>
+            <button class="btn btn-primary" (click)="save()">Enregistrer</button>
         </div>
     </div>
     <div class="text-center col-md-6 mb-2">
         <form class="card-body text-center" [formGroup]="changeForm">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label text-light">Password</label>
-                <input type="password" class="form-control" formControlName="password">
+                <label for="exampleFormControlInput1" class="form-label text-light">Mot de passe</label>
+                <input type="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && changeForm.controls['password'].errors }" formControlName="password">
+                <div *ngIf="submitted && changeForm.controls['password'].errors" class="invalid-feedback">
+                    <div *ngIf="changeForm.controls['password'].errors['required']">Password is required</div>
+                    <div *ngIf="changeForm.controls['password'].errors['minlength']">Password must be at least 6 characters</div>
+                </div>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label text-light">New Password</label>
-                <input type="password" class="form-control" formControlName="newPassword">
+                <label for="exampleFormControlInput1" class="form-label text-light">Nouveau mot de passe</label>
+                <input type="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && changeForm.controls['password'].errors }" formControlName="newPassword">
+                <div *ngIf="submitted && changeForm.controls['newPassword'].errors" class="invalid-feedback">
+                    <div *ngIf="changeForm.controls['newPassword'].errors['required']">Password is required</div>
+                    <div *ngIf="changeForm.controls['newPassword'].errors['minlength']">Password must be at least 6 characters</div>
+                </div>
             </div>
-            <button class="btn btn-primary" type="submit" (click)="updatePassword()">Submit</button>
+            <button class="btn btn-primary" type="submit" (click)="updatePassword()">Enregistrer</button>
         </form>
     </div>
 </div>

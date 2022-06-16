@@ -5,11 +5,15 @@ const proprietaireAuth = require("../middlewares/proprietaireAuth");
 const AdminAuth = require("../middlewares/adminAuth");
 const stadeController = require("../controllers/stadeController");
 router.post('/add',proprietaireAuth,stadeController.ajoutStade)
-router.get('/all',stadeController.getAllStades)
-router.post('/:nom',stadeController.getStadesByNom)
+router.get('/all',stadeController.getStades)
+router.get('/demande',stadeController.getStadesDemande)
+router.get('/nom/:nom',stadeController.getStadesByNom)
 router.get('/id/:id',stadeController.getStadeById)
 router.get('/proprietaire',proprietaireAuth,stadeController.getStadesByProprietaire)
+router.put('/update/:id',proprietaireAuth,stadeController.updateStade)
+router.put('/accepter/:id',AdminAuth,stadeController.accepterDemande)
+router.put('/refuser/:id',AdminAuth,stadeController.refuserDemande)
+router.put('/activer/:id',proprietaireAuth,stadeController.activerStade)
+router.put('/desactiver/:id',proprietaireAuth,stadeController.desactiverStade)
 router.get('/count',stadeController.countStades)
-router.put('/update',proprietaireAuth,stadeController.ajoutStade)
-
 module.exports = router

@@ -32,7 +32,7 @@ export class ResetPasswordComponent implements OnInit {
     // stop here if form is invalid
     if (this.ResetPasswordForm.valid&&this.ResetPasswordForm.value.password===this.ResetPasswordForm.value.confirm) {
       this.auth.resetPassword(this.ResetPasswordForm.value.password).subscribe(res=>{
-        this.router.navigateByUrl('/Signin')
+        this.router.navigateByUrl('/login')
       },
       err=>{
         console.log(err.error.message);

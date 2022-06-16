@@ -4,7 +4,6 @@ module.exports = async function (req, res, next) {
   try {
     const token=req.headers.authorization.replace('Bearer ',"")
     const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
-    console.log(payload);
     req.body.user = payload.id;
     let userInformations = await User.findById(payload.id);
     if (!userInformations) return res.status(404).json({ message: "Le compte n'existe pas ou a été supprimé !" });

@@ -29,6 +29,7 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
+      
       const email = req.body.email
       const password = req.body.password
       
@@ -55,26 +56,80 @@ exports.register = async (req, res) => {
         var mailOptions = {
           from: 'lassedmaghrebi1@gmail.com',
           to: req.body.email,
-          subject: 'Account Activation',
-          html: "<h1>Bienvenu " + req.body.prenom + "</h1><p>Cliquez sur le lien ci-dessous pour activer votre compte MiniFoot.tn</p>"
-            + `<a href="${url}" style="background-color: #3498DB;color: white;padding: 14px;text-align: center;text-decoration: none;
-            border-radius:8px;font-size:1.5rem;">
+          subject: 'Activation du compte',
+          html: "<h1>Bienvenue " + req.body.prenom + "</h1><p>Cliquez sur le lien ci-dessous pour activer votre compte sur la plateforme H-Sports</p>"
+            + `<a href="${url}">
             Activez votre compte</a>`
-            + "<p style='color:#E74C3C;'>ce lien expire dans 24h</p>"
+            + "<p style='color:#E74C3C;'>Ce lien expire dans 24h</p>"
 
         };
         transporter.sendMail(mailOptions).then(()=> {
-          return res.status(200).json('E-mail de vérification envoyé Vérifiez votre boîte aux lettres');
+          return res.status(200).json('E-mail de confirmation envoyé! Vérifiez votre boite email.');
         }).catch(err => {
           User.findByIdAndDelete(data.id).then(()=> {
           return res.status(400).json('Entrer un email valide');
           })
         })
       }).catch(err => {
-        return res.status(400).json('Erreur de registration')})
+        return res.status(400).json("Erreur d'inscription")})
     } catch (error) {
-      res.status(500).json("Autre Erreur.");
+      res.status(500).json("Autre Erreur");
     }
+}
+
+exports.logout = (req, res) => {
+  console.log(req.body.user);
+  try {
+    
+    User.findByIdAndUpdate(req.body.user, { DeconnectionDate: Date.now() }, (err, result) => {
+      if (err) return res.status(404).json("user not exists")
+      res.status(200).json("Deconnecté!")
+    })
+  } catch (e) {
+    res.status(500).json("autre Error.");
+  }
+}
+
+exports.changePassword = async (req, res) => {
+  try {
+    let user = await User.findById(req.body.user);
+    if (!bcrypt.compareSync(req.body.password, user.password)) return res.status(400).json("mot de passe incorrect !" );
+    if (bcrypt.compareSync(req.body.newPassword, user.password)) return res.status(400).json("Vouz devez utiliser un nouveau mot de passe");
+    const salt = bcrypt.genSaltSync(10);
+    const newPassword = bcrypt.hashSync(req.body.newPassword, salt);
+    User.findByIdAndUpdate(user._id,{$set: { password: newPassword}}).then(()=>{
+      return res.status(200).json("Votre mot de passe a etait changer");
+    })
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "autre erreur" });
+  }
+}
+
+exports.reclamer = (req, res) => {
+  console.log(req.body);
+  try {
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+      // true for 465, false for other ports
+      auth: {
+        user: process.env.MAILER_EMAIL_ID, // generated ethereal user
+        pass: process.env.MAILER_PASSWORD // generated ethereal password
+      },
+    });
+    var mailOptions = {
+      from: req.body.email,
+      to: 'lassedmaghrebi@gmail.com',
+      subject: req.body.Sujet,
+      html: "<h1>" + req.body.Sujet + " </h1><br> <h3>from: "+req.body.email+"</p>"+
+      "<p>"+req.body.description+"</p>"
+    };
+    transporter.sendMail(mailOptions).then(()=> {
+    return res.status(200).json('Reclamation envoye');
+    })
+  } catch (err) {
+    res.status(500).json("autre erreur !");
+  }
 }
 
 exports.confirmeEmail = async (req, res) => {
@@ -122,6 +177,7 @@ exports.activerCompte =(req, res) => {
 exports.forgotPassword = async (req, res) => {
   const email = req.body.email;
   try {
+    console.log(process.env.MAILER_EMAIL_ID," ",process.env.MAILER_PASSWORD)
     if (email == null) return res.status(404).json("entrer votre adresse e-mail!");
     let user = await User.findOne({ email: email })
     if (!user) return res.status(404).json("Le compte n'existe pas ou a été supprimé !");
@@ -142,10 +198,9 @@ exports.forgotPassword = async (req, res) => {
     });
     let url = `http://localhost:4200/reset-password/${Token}`
     var mailOptions = {
-      from: 'lassedmaghrebi1@gmail.com',
       to: req.body.email,
       subject: 'Reset Password',
-      html: "<h1>Bonjour" + user.prenom + "</h1> <p>Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe</p>"
+      html: "<h1>Bonjour " + user.prenom + " </h1> <p>Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe</p>"
         + `<a href="${url}" style="background-color: #3498DB;color: white;padding: 14px;text-align: center;text-decoration: none;
       border-radius:8px;font-size:1.5rem;">
       Reset Password</a>`+ "<p style='color:#E74C3C;'>ce lien expire dans 5 minutes</p>"
@@ -159,8 +214,7 @@ exports.forgotPassword = async (req, res) => {
 }
 
 exports.resetPassword = async (req, res) => {
-  
-  // if (!token) { return res.status(401).json({ message: "Please use the link in your email to reset your password" }); }
+
   try {
     const token=req.headers.authorization.replace('Bearer ',"")
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
@@ -168,9 +222,9 @@ exports.resetPassword = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const password = bcrypt.hashSync(req.body.password, salt);
     let userInformations = await User.findById(decoded.user.userId)
-    if (bcrypt.compareSync(req.body.password, userInformations.password)) return res.status(400).json("Please don't use the same password");
+    if (bcrypt.compareSync(req.body.password, userInformations.password)) return res.status(400).json("Vouz devez utiliser un nouveau mot de passe");
     User.findByIdAndUpdate(decoded.user.userId, { $set: { password: password } }, function (err, result) {
-      if (result) return res.status(200).json("Your password has been changed successfully")
+      if (result) return res.status(200).json("Votre mot de passe a etait changer")
       return res.status(400).json('Email Verification error');
     })
   } catch (error) {
@@ -202,12 +256,12 @@ exports.getUserData =(req, res) => {
 
 exports.getAllUsers =(req, res) => {
   try {
-    User.find({role:{$in:["joueur","proprietaire"]}}).then((result)=> {
+    User.find({role:{$in:["joueur","proprietaire"]}},(err, result) => {
       if (result)return res.status(200).json(result)
       if (!result)return res.status(200).json("Aucun utilisateur trouvé !")
-    })
+    }).sort({role:-1})
   } catch (e) {
-    res.status(500).json("autre erreur !");
+    res.status(500).json("Autre erreur !");
   }
 }
 
@@ -221,6 +275,7 @@ exports.getUserById =(req, res) => {
     res.status(500).json("autre erreur !");
   }
 }
+
 exports.getUserName =(req, res) => {
   try {
     User.findById(req.params.id,{nom:1,prenom:1}).then((result)=> {
@@ -229,16 +284,6 @@ exports.getUserName =(req, res) => {
     })
   } catch (e) {
     res.status(500).json("autre erreur !");
-  }
-}
-
-exports.test =(req, res) => {
-  try {
-    // console.log(req.header('authorization'))
-    // console.log(req.headers.authorization)
-    const token=jwt.verify(req.headers.authorization.split(' ')[1],process.env.TOKEN_SECRET_KEY)
-  } catch (e) {
-    res.status(500).json({  message: e.message|| "Server Error."});
   }
 }
 
@@ -253,13 +298,14 @@ var storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage }).single('image');
 exports.AjoutImage = (req, res) => {
+  let user=req.body.user
   upload(req, res, (err) => {
     try {
-      User.findByIdAndUpdate(req.body.user,{ $set: { image: req.file.filename} }, (err, result) => {
+      User.findByIdAndUpdate(user,{ $set: { image: req.file.filename} }, (err, result) => {
         if (result) res.status(200).json(req.file.filename)
       })
     } catch (e) {
-      res.status(500).send("server error");
+      res.status(500).send({ message: e.error || "server error" });
     }
   })
 }
@@ -274,3 +320,4 @@ exports.getImage = (req, res) => {
     }
   })
 }
+

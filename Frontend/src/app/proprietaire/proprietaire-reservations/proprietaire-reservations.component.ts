@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -9,15 +11,14 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class ProprietaireReservationsComponent implements OnInit {
 
-  hours=["8 AM","9 AM","10 AM","11 AM","12 AM","13 PM","14 PM","15 PM","16 PM","17 PM","18 PM","19 PM","20 PM","21 PM","22 PM","23 PM"]
-  weekDays=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+  hours=["8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+  weekDays=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
   reservation:any[]=[]
   today=new Date
   days:Date[]=[]
-  constructor(private http:HttpClient,private elRef:ElementRef,private data:DataService) { 
-    
-      // this.today=new Date("2022-04-17T03:24:00")
-      this.today=new Date("2022-05-28T03:24:00")      
+  ReservationForm!: FormGroup;
+  constructor(private http:HttpClient,private formbuilder: FormBuilder,public toastr: ToastrService,private data:DataService) { 
+      this.today=new Date(Date.now())      
       for (let i = 0; i < 7; i++) {
         this.days[i]=new Date()
         this.days[i].setDate(this.today.getDate()+i)
@@ -25,35 +26,38 @@ export class ProprietaireReservationsComponent implements OnInit {
     
   }
   
+  stades:any=[]
+  getStades(){
+    this.stades=[]
+    this.data.getProprietaireStade().subscribe(res=>{
+      this.stades=res
+    })
+  }
+
   ngOnInit(): void {
+    this.getStades()
     this.getAllReservations()
-    // this.reservation.push({date:new Date('2022-05-28T09:20:00'),id:"azdlakd"})
-    // console.log(this.reservation[0].date.toLocaleDateString());
-    // console.log(this.days[0].toLocaleDateString());
-    // console.log(this.reservation);
+
+    this.ReservationForm = this.formbuilder.group({
+      stadeId: ['', [Validators.required]],
+      date: ['', [Validators.required]],
+      equipe: [16, [Validators.required]],
+    })
     
   }
   getAllReservations(){
     this.reservation=[]
-    this.http.get("http://localhost:3000/reservation/all").subscribe((res:any)=>{
+    this.data.getAllReservations().subscribe((res:any)=>{
       res.forEach((element:any) => {
         this.http.get("http://localhost:3000/auth/name/"+element.joueurId).subscribe((resp:any)=>{
-          console.log(resp);
-          
           element.joueur= resp
           element.date=new Date(element.date)
           element.date.setHours(element.date.getHours()-1)
-          console.log(element.date);
           this.reservation.push(element)
         })
 
       });
       console.log(this.reservation);
-      
-      // res[0].date=new Date(res[0].date)
-      // this.reservation=res
-      // console.log(res[0].date);
-      // console.log(res[0].date.getDay());
     })
   }
   getPosition(a:any){
@@ -72,7 +76,7 @@ export class ProprietaireReservationsComponent implements OnInit {
     this.today.setDate(this.today.getDate()-7)
     let p=this.today.toLocaleDateString().split('/')
     let date=p[2]+'-'+p[1]+'-'+p[0]
-    this.http.get("http://localhost:3000/reservation/date/"+date).subscribe((res:any)=>{
+    this.data.getReservationsByDate(date).subscribe((res:any)=>{
       res.forEach((element:any) => {
         this.http.get("http://localhost:3000/auth/name/"+element.joueurId).subscribe((resp:any)=>{
           element.joueur= resp
@@ -95,7 +99,7 @@ export class ProprietaireReservationsComponent implements OnInit {
     this.today.setDate(this.today.getDate()+7)
     let p=this.today.toLocaleDateString().split('/')
     let date=p[2]+'-'+p[1]+'-'+p[0]
-    this.http.get("http://localhost:3000/reservation/date/"+date).subscribe((res:any)=>{
+    this.data.getReservationsByDate(date).subscribe((res:any)=>{
       res.forEach((element:any) => {
         this.http.get("http://localhost:3000/auth/name/"+element.joueurId).subscribe((resp:any)=>{
           element.joueur= resp
@@ -116,17 +120,29 @@ export class ProprietaireReservationsComponent implements OnInit {
 
 
 
-
-  accepter(id:string){
-    this.data.accepterReservation(id).subscribe(res=>{
-      console.log(res);
-      
-      this.getAllReservations()
-    })
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Reservation Ajouter', {
+      timeOut: 3000,
+    });
   }
-  refuser(id:string){
-    this.data.refuserReservation(id).subscribe(res=>{
-      this.getAllReservations()
-    })
+  showError(message: string) {
+    this.toastr.error(message, 'Reservation Erreur !', {
+      timeOut: 3000,
+    });
+  }
+
+
+
+  submitted=false
+  reserver() {
+    this.submitted = true
+    console.log(this.ReservationForm.value);
+    if (this.ReservationForm.valid) {
+      this.data.reserverStade(this.ReservationForm.value).subscribe((res: any) => {
+        this.showSuccess(res)
+      }, err => {
+        this.showError(err.error)
+      })
+    }
   }
 }

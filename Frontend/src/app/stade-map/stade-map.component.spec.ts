@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AjoutStadeComponent } from './ajout-stade.component';
+import { StadeMapComponent } from './stade-map.component';
 
-describe('AjoutStadeComponent', () => {
-  let component: AjoutStadeComponent;
-  let fixture: ComponentFixture<AjoutStadeComponent>;
+describe('StadeMapComponent', () => {
+  let component: StadeMapComponent;
+  let fixture: ComponentFixture<StadeMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AjoutStadeComponent ]
+      declarations: [ StadeMapComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AjoutStadeComponent);
+    fixture = TestBed.createComponent(StadeMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

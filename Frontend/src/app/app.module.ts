@@ -21,7 +21,6 @@ import { ProprietaireDashboardComponent } from './proprietaire/proprietaire-dash
 import { ProprietaireReservationsComponent } from './proprietaire/proprietaire-reservations/proprietaire-reservations.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { ListeStadesComponent } from './admin/liste-stades/liste-stades.component';
 import { ListeUtilisateursComponent } from './admin/liste-utilisateurs/liste-utilisateurs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StadesMapComponent } from './stades-map/stades-map.component';
@@ -30,6 +29,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { NgChartsModule } from 'ng2-charts';
 import { ProprietaireRegisterComponent } from './proprietaire-register/proprietaire-register.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { DemandeComponent } from './admin/demande/demande.component';
+import { StadeMapComponent } from './stade-map/stade-map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,13 +47,14 @@ import { ReservationsComponent } from './reservations/reservations.component';
     ProprietaireReservationsComponent,
     AdminComponent,
     AdminDashboardComponent,
-    ListeStadesComponent,
     ListeUtilisateursComponent,
     ProfileComponent,
     StadesMapComponent,
     ProprietaireStadesComponent,
     ProprietaireRegisterComponent,
     ReservationsComponent,
+    DemandeComponent,
+    StadeMapComponent,
     
   ],
   imports: [

@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
-
+import { AuthentificationService } from 'src/app/services/authentification.service';
+import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-proprietaire-dashboard',
   templateUrl: './proprietaire-dashboard.component.html',
@@ -8,57 +9,16 @@ import { Chart } from 'chart.js';
 })
 export class ProprietaireDashboardComponent implements OnInit {
 
-  constructor() { }
-  chart: any;
+  constructor(private http:HttpClient,private data:DataService) { }
+
+  reservations=0
+  montant=0
   ngOnInit(): void {
-    this.chart = new Chart('areaChart', {
-      type: 'line',
-      data: this.data
-    });
-    this.chart = new Chart('areaChart2', {
-      type: 'doughnut',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow'],
-        datasets: [
-          {
-            label: 'My First Dataset',
-            data: [300, 50, 100],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)',
-            ],
-            hoverOffset: 10,
-          },
-        ],
-      }
-    });
+    this.data.getAllReservations().subscribe((res:any)=>{
+      res.forEach((element:any) => {
+        this.montant=this.montant+element.montant
+      });
+      this.reservations=res.length
+    })
   }
-  data = {
-    labels: [
-      'Janvier',
-      'Février',
-      'Mars',
-      'Avril',
-      'Mai',
-      'Juin',
-      'Juillet',
-      'Aout',
-      'Septembre',
-      'Octobre',
-      'Novembre',
-      'Décembre'
-    ],
-    datasets: [
-      {
-        label: 'Reservations',
-        data: [0, 0, 0, 0, 0, 5, 15, 2,0,0,0,0],
-        backgroundColor: 'rgba(40,125,200,.5)',
-        borderColor: 'rgb(40,100,200)',
-        fill: true,
-        lineTension: 0.4,
-        radius: 5,
-      },
-    ],
-  };
 }
